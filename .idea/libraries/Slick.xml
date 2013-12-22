@@ -1,0 +1,36 @@
+<component name="libraryTable">
+  <library name="Slick">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../lib/slick.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/lwjgl-2.8.5/jar/asm-debug-all.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/lwjgl-2.8.5/jar/jinput.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/lwjgl-2.8.5/jar/lwjgl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/lwjgl-2.8.5/jar/lwjgl_test.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/lwjgl-2.8.5/jar/lwjgl_util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/lwjgl-2.8.5/jar/lwjgl_util_applet.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/lwjgl-2.8.5/jar/lwjgl-debug.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/lwjgl-2.8.5/jar/lzma.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/hiero.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/ibxm.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/jinput.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/jnlp.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/jogg-0.0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/jorbis-0.0.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/lwjgl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/natives-linux.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/natives-mac.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/natives-win32.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/packulike.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/pedigree.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/scalar.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/slick.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/slick-examples.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/slick-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/slick-util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/slick-util-src.zip!/" />
+      <root url="jar://$PROJECT_DIR$/../lib/slick/lib/tinylinepp.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
