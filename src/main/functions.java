@@ -82,14 +82,30 @@ public static float getAngle(float x1, float y1, float x2, float y2){
 		}
 		if(id == 4){
 			axe d = new axe(container.getImage("items/axe"),1);
+            d.angle = angle;
 			return d;
 		}
-		if(id == 5){
-			wood d = new wood(container.getImage("items/wood"),Stack);
-			d.angle = angle;
-			return d;
-		}
-		
+        if(id == 5){
+            wood d = new wood(container.getImage("items/wood"),Stack);
+            d.angle = angle;
+            return d;
+        }
+        if(id == 6){
+            RainbowDust d = new RainbowDust(container.getImage("items/rainbow_dust"),Stack);
+            d.angle = angle;
+            return d;
+        }
+        if(id == 7){
+            BlackmanDust d = new BlackmanDust(container.getImage("items/blackstone_dust"),Stack);
+            d.angle = angle;
+            return d;
+        }
+        if(id == 8){
+            Dynamite d = new Dynamite(container.getImage("items/TNT"),Stack);
+            d.angle = angle;
+            return d;
+        }
+
 		return null;
 	}
 	

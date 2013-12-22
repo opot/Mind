@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.geom.Polygon;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -12,10 +13,11 @@ public class CraftMenuState extends BasicGameState {
 	private int id;
 	Image background;
 	Item[][] player = new Item[5][5];
-	Vector<Item> here = new Vector<Item>();
+	Vector<Item> workbench = new Vector<Item>();
 	Item inHand = null;
 
 	Polygon mouse = new Polygon();
+    Rectangle craft = new Rectangle(64,33,284,331);
 
 	public CraftMenuState(int id) {
 		this.id = id;
@@ -28,7 +30,7 @@ public class CraftMenuState extends BasicGameState {
 
 		BufferedWorld wrld = ((Main) game).buf;
 		ImageContainer container = ((Main) game).container;
-		here = new Vector<Item>();
+		workbench = new Vector<Item>();
 
 		player = new Item[5][5];
 		for (int i = 0; i <= 24; i++)
@@ -62,9 +64,11 @@ public class CraftMenuState extends BasicGameState {
 					g.drawString(String.valueOf(player[i][j].Stack),
 							435 + 52 * i, 80 + 52 * j);
 				}
-		if (inHand != null)
-			inHand.draw(g, inHand.x - inHand.img.getWidth() / 2, inHand.y
-					- inHand.img.getHeight() / 2);
+        for(Item item:workbench)
+            item.draw(g,item.x,item.y);
+
+        if (inHand != null)
+                inHand.draw(g, inHand.x, inHand.y);
 	}
 
 	@Override
@@ -97,8 +101,8 @@ public class CraftMenuState extends BasicGameState {
     @Override
 	public void mouseMoved(int arg0, int arg1, int x, int y) {
 		if (inHand != null) {
-			inHand.x = x;
-			inHand.y = y;
+			inHand.x = x- inHand.img.getWidth() / 2;
+			inHand.y = y- inHand.img.getHeight() / 2;
 		}
 	}
 
@@ -129,6 +133,10 @@ public class CraftMenuState extends BasicGameState {
 					inHand.rect.addPoint(x + 20, y - 20);
 					inHand.rect.addPoint(x + 20, y + 20);
 					inHand.rect.addPoint(x - 20, y + 20);
+                    if(craft.contains(inHand.rect)){
+                        workbench.add(inHand);
+                        inHand = null;
+                    }else
 					for (int i = 0; i <= 4; i++)
 						for (int j = 0; j <= 4; j++)
 							if (player[j][i] != null)
