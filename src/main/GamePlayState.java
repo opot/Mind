@@ -117,7 +117,7 @@ public class GamePlayState extends BasicGameState {
 			throws SlickException {
 		g.setColor(Color.white);
 		if (isMap)
-			draw_map(g, gc);
+			draw_map(gc);
 		else {
 			time.render(g, gc);
 
@@ -263,7 +263,6 @@ public class GamePlayState extends BasicGameState {
 						world)) {
 					playerAmmos.get(i).drop(((Main) game).container, items);
 					playerAmmos.remove(i);
-					continue;
 				}
 				boolean sh = false;
 				for (int j = 0; j < mobs.size() && !sh; j++)
@@ -305,7 +304,7 @@ public class GamePlayState extends BasicGameState {
 				if (items.get(i).rect.intersects(player.rect)) {
 					for (int j = 0; j <= 24; j++)
 						if (player.inventory[j] != null)
-							if (player.inventory[j].id == items.get(i).id) {
+							if (player.inventory[j].id.equals(items.get(i).id)) {
 								player.inventory[j].Stack += items.get(i).Stack;
 								items.remove(i);
 								return;
@@ -338,7 +337,7 @@ public class GamePlayState extends BasicGameState {
 		}
 	}
 
-	private void draw_map(Graphics g, GameContainer gc) throws SlickException {
+	private void draw_map(GameContainer gc) throws SlickException {
 
 		Circle world = new Circle(gc.getWidth() / 2, gc.getHeight() / 2,
 				(float) (gc.getHeight() * 0.3));
@@ -368,10 +367,10 @@ public class GamePlayState extends BasicGameState {
 
 	private void save(Main game) throws SlickException {
 		if (playerAmmos.size() != 0)
-			for (int i = 0; i < playerAmmos.size(); i++)
-				if (playerAmmos.get(i) instanceof main.ammos.boom)
+            for(Ammo a:playerAmmos)
+				if (a instanceof main.ammos.boom)
 					items.add(functions.createItem(2, 1, new ImageContainer(),
-							(int) playerAmmos.get(i).angle));
+							(int) a.angle));
 		BufferedWorld buf = new BufferedWorld(objects, mobs ,player, name,
 				time.CurrentTime, world_mask.getRotation(), items, Score,
 				player.angle);
