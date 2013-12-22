@@ -126,6 +126,11 @@ public class CraftMenuState extends BasicGameState {
 								player[i][j] = null;
 								return;
 							}
+                for(int i = 0; i<workbench.size();i++)
+                    if(workbench.get(i).rect.intersects(mouse)||workbench.get(i).rect.contains(mouse)){
+                        inHand = workbench.get(i);
+                        workbench.remove(i);
+                    }
 			} else {
 				if (inHand != null) {
 					inHand.rect = new Polygon();
@@ -136,6 +141,7 @@ public class CraftMenuState extends BasicGameState {
                     if(craft.contains(inHand.rect)){
                         workbench.add(inHand);
                         inHand = null;
+
                     }else
 					for (int i = 0; i <= 4; i++)
 						for (int j = 0; j <= 4; j++)
