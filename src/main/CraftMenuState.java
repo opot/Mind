@@ -105,9 +105,13 @@ public class CraftMenuState extends BasicGameState {
 			inHand.y = y- inHand.img.getHeight() / 2;
 		}
 	}
+    @Override
+	public void mouseDragged(int arg0, int arg1, int x, int y) {
+		mouseMoved(arg0,arg1,x,y);
+	}
 
 	@Override
-	public void mouseReleased(int button, int x, int y) {
+	public void mousePressed(int button, int x, int y) {
 
 		if (button == Input.MOUSE_LEFT_BUTTON) {
 			if (inHand == null) {
