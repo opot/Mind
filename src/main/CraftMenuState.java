@@ -125,8 +125,8 @@ public class CraftMenuState extends BasicGameState {
 						if (player[i][j] != null)
 							if (player[i][j].rect.contains(mouse)) {
 								inHand = player[i][j];
-								inHand.x = x;
-								inHand.y = y;
+								inHand.x = (int) (x-inHand.width/2);
+								inHand.y = (int) (y-inHand.height/2);
 								player[i][j] = null;
 								return;
 							}
