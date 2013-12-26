@@ -17,13 +17,14 @@ public class CraftMenuState extends BasicGameState {
 	Item inHand = null;
 
 	Polygon mouse = new Polygon();
-    Rectangle craft = new Rectangle(64,33,284,331);
+	Rectangle craft = new Rectangle(64, 33, 284, 331);
+	Rectangle make = new Rectangle(75, 433, 283, 167);
 
 	public CraftMenuState(int id) {
 		this.id = id;
 	}
 
-    @Override
+	@Override
 	public void enter(GameContainer gc, StateBasedGame game)
 			throws SlickException {
 		super.enter(gc, game);
@@ -64,11 +65,13 @@ public class CraftMenuState extends BasicGameState {
 					g.drawString(String.valueOf(player[i][j].Stack),
 							435 + 52 * i, 80 + 52 * j);
 				}
-        for(Item item:workbench)
-            item.draw(g,item.x,item.y);
+		for (Item item : workbench) {
+			item.draw(g, item.x, item.y);
+			g.fill(item.rect);
+		}
 
-        if (inHand != null)
-                inHand.draw(g, inHand.x, inHand.y);
+		if (inHand != null)
+			inHand.draw(g, inHand.x, inHand.y);
 	}
 
 	@Override
@@ -77,6 +80,13 @@ public class CraftMenuState extends BasicGameState {
 		Input input = gc.getInput();
 		if (input.isKeyPressed(Input.KEY_ESCAPE)
 				|| input.isKeyPressed(Input.KEY_I)) {
+			for (int i = 0; i <= 4 && !workbench.isEmpty(); i++)
+				for (int j = 0; j <= 4 && !workbench.isEmpty(); j++)
+					if (player[j][i] == null) {
+						player[j][i] = workbench.get(workbench.size() - 1);
+						workbench.remove(workbench.size() - 1);
+					}
+
 			((Main) game).buf.playerInventory = new Integer[25][2];
 			for (int i = 0; i <= 4; i++)
 				for (int j = 0; j <= 4; j++)
@@ -86,7 +96,15 @@ public class CraftMenuState extends BasicGameState {
 					}
 			game.enterState(Main.GAMEPLAYSTATE);
 		}
-
+		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+			mouse = new Polygon();
+			mouse.addPoint(input.getMouseX(), input.getMouseY());
+			mouse.addPoint(input.getMouseX() + 1, input.getMouseY());
+			mouse.addPoint(input.getMouseX() + 1, input.getMouseY() + 1);
+			mouse.addPoint(input.getMouseX(), input.getMouseY() + 1);
+			if (make.contains(mouse))
+				workbench = functions.craft(workbench, ((Main) game).container);
+		}
 		for (int i = 0; i <= 4; i++)
 			for (int j = 0; j <= 4; j++)
 				if (player[i][j] != null) {
@@ -98,16 +116,17 @@ public class CraftMenuState extends BasicGameState {
 				}
 	}
 
-    @Override
+	@Override
 	public void mouseMoved(int arg0, int arg1, int x, int y) {
 		if (inHand != null) {
-			inHand.x = x- inHand.img.getWidth() / 2;
-			inHand.y = y- inHand.img.getHeight() / 2;
+			inHand.x = x - inHand.img.getWidth() / 2;
+			inHand.y = y - inHand.img.getHeight() / 2;
 		}
 	}
-    @Override
+
+	@Override
 	public void mouseDragged(int arg0, int arg1, int x, int y) {
-		mouseMoved(arg0,arg1,x,y);
+		mouseMoved(arg0, arg1, x, y);
 	}
 
 	@Override
@@ -120,21 +139,23 @@ public class CraftMenuState extends BasicGameState {
 				mouse.addPoint(x + 1, y);
 				mouse.addPoint(x + 1, y + 1);
 				mouse.addPoint(x, y + 1);
+
 				for (int i = 0; i <= 4; i++)
 					for (int j = 0; j <= 4; j++)
 						if (player[i][j] != null)
 							if (player[i][j].rect.contains(mouse)) {
 								inHand = player[i][j];
-								inHand.x = (int) (x-inHand.width/2);
-								inHand.y = (int) (y-inHand.height/2);
+								inHand.x = (int) (x - inHand.width / 2);
+								inHand.y = (int) (y - inHand.height / 2);
 								player[i][j] = null;
 								return;
 							}
-                for(int i = 0; i<workbench.size();i++)
-                    if(workbench.get(i).rect.intersects(mouse)||workbench.get(i).rect.contains(mouse)){
-                        inHand = workbench.get(i);
-                        workbench.remove(i);
-                    }
+				for (int i = 0; i < workbench.size(); i++)
+					if (workbench.get(i).rect.intersects(mouse)
+							|| workbench.get(i).rect.contains(mouse)) {
+						inHand = workbench.get(i);
+						workbench.remove(i);
+					}
 			} else {
 				if (inHand != null) {
 					inHand.rect = new Polygon();
@@ -142,24 +163,25 @@ public class CraftMenuState extends BasicGameState {
 					inHand.rect.addPoint(x + 20, y - 20);
 					inHand.rect.addPoint(x + 20, y + 20);
 					inHand.rect.addPoint(x - 20, y + 20);
-                    if(craft.contains(inHand.rect)){
-                        workbench.add(inHand);
-                        inHand = null;
+					if (craft.contains(inHand.rect)) {
+						workbench.add(inHand);
+						inHand = null;
 
-                    }else
-					for (int i = 0; i <= 4; i++)
-						for (int j = 0; j <= 4; j++)
-							if (player[j][i] != null)
-								if (inHand.rect.intersects(player[j][i].rect)
-										|| inHand.rect
-												.contains(player[j][i].rect)) {
-									Item buf = inHand;
-									inHand = player[j][i];
-									player[j][i] = buf;
-                                    inHand.x = x;
-                                    inHand.y = y;
-									return;
-								}
+					} else
+						for (int i = 0; i <= 4; i++)
+							for (int j = 0; j <= 4; j++)
+								if (player[j][i] != null)
+									if (inHand.rect
+											.intersects(player[j][i].rect)
+											|| inHand.rect
+													.contains(player[j][i].rect)) {
+										Item buf = inHand;
+										inHand = player[j][i];
+										player[j][i] = buf;
+										inHand.x = x;
+										inHand.y = y;
+										return;
+									}
 					for (int i = 0; i <= 4; i++)
 						for (int j = 0; j <= 4; j++)
 							if (player[j][i] == null) {
