@@ -65,10 +65,8 @@ public class CraftMenuState extends BasicGameState {
 					g.drawString(String.valueOf(player[i][j].Stack),
 							435 + 52 * i, 80 + 52 * j);
 				}
-		for (Item item : workbench) {
+		for (Item item : workbench)
 			item.draw(g, item.x, item.y);
-			g.fill(item.rect);
-		}
 
 		if (inHand != null)
 			inHand.draw(g, inHand.x, inHand.y);
@@ -175,12 +173,18 @@ public class CraftMenuState extends BasicGameState {
 											.intersects(player[j][i].rect)
 											|| inHand.rect
 													.contains(player[j][i].rect)) {
-										Item buf = inHand;
-										inHand = player[j][i];
-										player[j][i] = buf;
-										inHand.x = x;
-										inHand.y = y;
-										return;
+										if (inHand.id == player[j][i].id) {
+											player[j][i].Stack+=inHand.Stack;
+											inHand = null;
+											return;
+										} else {
+											Item buf = inHand;
+											inHand = player[j][i];
+											player[j][i] = buf;
+											inHand.x = x;
+											inHand.y = y;
+											return;
+										}
 									}
 					for (int i = 0; i <= 4; i++)
 						for (int j = 0; j <= 4; j++)

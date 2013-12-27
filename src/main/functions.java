@@ -18,30 +18,6 @@ import main.things.Spruce;
 
 public class functions {
 
-	public static float getAngle(float x1, float y1, float x2, float y2) {
-
-		float angle;
-		double vectX = x1 - x2;
-		double vectY = y2 - y1;
-		double hyp = Math.sqrt(vectX * vectX + vectY * vectY);
-
-		if (vectX < 0)
-			vectX *= -1;
-		if (vectY < 0)
-			vectY *= -1;
-
-		if (x1 >= x2)
-			if (y1 < y2)
-				angle = (float) Math.acos(vectX / hyp);
-			else
-				angle = (float) (Math.acos(vectY / hyp) + Math.PI / 2 * 3);
-		else if (y1 < y2)
-			angle = (float) (Math.acos(vectY / hyp) + Math.PI / 2);
-		else
-			angle = (float) (Math.acos(vectX / hyp) + Math.PI);
-		return angle;
-	}
-
 	public static Thing createRandomThing(ImageContainer container)
 			throws SlickException {
 		Random r = new Random();
@@ -111,6 +87,11 @@ public class functions {
 			d.angle = angle;
 			return d;
 		}
+		if (id == 9) {
+			stones d = new stones(container.getImage("items/stones"), Stack);
+			d.angle = angle;
+			return d;
+		}
 
 		return null;
 	}
@@ -126,7 +107,8 @@ public class functions {
 	}
 
 	@SuppressWarnings("unchecked")
-	public static Vector<Item> craft(Vector<Item> workbench,ImageContainer container) {
+	public static Vector<Item> craft(Vector<Item> workbench,
+			ImageContainer container) {
 		Vector<Item> buf = (Vector<Item>) (workbench.clone());
 		Vector<Item> recipe = null;
 		for (int j = 0; j <= buf.size() - 1; j++)
@@ -137,40 +119,55 @@ public class functions {
 					buf.set(i - 1, b);
 				}
 
-		for (int i = 1; i <= 2; i++) {
-			recipe = getRecipe(i,container);
+		for (int i = 2; i <= 8; i++) {
+			recipe = getRecipe(i, container);
 			boolean Accepted = true;
-			if (buf.size() == recipe.size()) 
-				for(int j = 0;j<=buf.size()-1;j++)
-					if(buf.get(j).id!=recipe.get(j).id)
-						Accepted = false;
-			if(Accepted){
-				for(int j = 0;j<=buf.size()-1;j++)
-					buf.get(j).Stack--;
-				for(int j = 0;j<=buf.size()-1;j++)
-					if(buf.get(j).Stack==0){
-						buf.remove(j);
-						j--;
+			if (recipe != null)
+				if (buf.size() == recipe.size()) {
+					for (int j = 0; j <= buf.size() - 1; j++)
+						if (buf.get(j).id != recipe.get(j).id)
+							Accepted = false;
+					if (Accepted) {
+						for (int j = 0; j <= buf.size() - 1; j++)
+							buf.get(j).Stack--;
+						for (int j = 0; j <= buf.size() - 1; j++)
+							if (buf.get(j).Stack == 0) {
+								buf.remove(j);
+								j--;
+							}
+						buf.add(createItem(i, 1, container, 0));
+						buf.get(buf.size() - 1).x = 176;
+						buf.get(buf.size() - 1).y = 167;
+						buf.get(buf.size() - 1).rect = new Polygon();
+						buf.get(buf.size() - 1).rect.addPoint(186, 177);
+						buf.get(buf.size() - 1).rect.addPoint(186 + 30, 177);
+						buf.get(buf.size() - 1).rect.addPoint(186 + 30, 207);
+						buf.get(buf.size() - 1).rect.addPoint(186, 207);
 					}
-				buf.add(createItem(i,1,container,0));
-				buf.get(buf.size()-1).x = 176;
-				buf.get(buf.size()-1).y = 167;
-				buf.get(buf.size()-1).rect = new Polygon();
-				buf.get(buf.size()-1).rect.addPoint(186, 177);
-				buf.get(buf.size()-1).rect.addPoint(186+30, 177);
-				buf.get(buf.size()-1).rect.addPoint(186+30, 207);
-				buf.get(buf.size()-1).rect.addPoint(186, 207);
-			}
+				}
 		}
 		return buf;
 	}
 
 	public static Vector<Item> getRecipe(int id, ImageContainer container) {
 		Vector<Item> recipe = new Vector<Item>();
-		if (id == 1)
-			recipe.add(createItem(1, 1, container, 0));
 		if (id == 2)
 			recipe.add(createItem(5, 1, container, 0));
+		if (id == 3)
+			return null;
+		if(id == 4){
+			return null;//add after some time
+		}
+		if(id == 5)
+			return null;;
+		if(id == 6)
+			recipe.add(createItem(1,1,container,0));
+		if(id == 7)
+			recipe.add(createItem(3,1,container,0));
+		if(id == 8){
+			recipe.add(createItem(6,1,container,0));
+			recipe.add(createItem(7,1,container,0));
+		}
 		return recipe;
 	}
 
