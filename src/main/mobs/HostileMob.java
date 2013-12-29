@@ -3,7 +3,7 @@ package main.mobs;
 import java.util.Random;
 import java.util.Vector;
 
-import main.Ammo;
+import main.AbstractAmmo;
 import main.ImageContainer;
 import main.Mob;
 import main.ammos.blackhole;
@@ -17,10 +17,10 @@ public abstract class HostileMob extends Mob {
 	int direction = 1;
 	Random rand;
 	float cooldown = 1000;
-	Vector<Ammo> ammos;
+	Vector<AbstractAmmo> ammos;
 	ImageContainer container;
 
-	public HostileMob(float angle, float worldAngle, ImageContainer container, Vector<Ammo> ammos)
+	public HostileMob(float angle, float worldAngle, ImageContainer container, Vector<AbstractAmmo> ammos)
 			throws SlickException {
 		super(angle, worldAngle, container);
 		rand = new Random();

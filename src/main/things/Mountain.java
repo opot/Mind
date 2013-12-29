@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 import main.ImageContainer;
 import main.Item;
 import main.Thing;
-import main.functions;
+import main.Functions;
 
 public class Mountain extends Thing {
 

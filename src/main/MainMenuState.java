@@ -67,7 +67,7 @@ public class MainMenuState extends BasicGameState {
 		for (int i = 0; i <= 3; i++) {
 			objects[i] = new Thing[menu[i].length];
 			for (int j = 0; j <= objects[i].length - 1; j++)
-				objects[i][j] = functions.createRandomThing(((Main)game).container);
+				objects[i][j] = Functions.createRandomThing(((Main)game).container);
 		}
 		world = new Circle(gc.getWidth() / 2,  gc.getHeight() / 2,
 				(float) (gc.getHeight() * 0.3));
@@ -174,11 +174,11 @@ public class MainMenuState extends BasicGameState {
 			} else {
 				Vector<Thing> objects = new Vector<Thing>();
 				for (int i = 0; i <= 10; i++)
-					objects.add(functions.createRandomThing(((Main)game).container));
+					objects.add(Functions.createRandomThing(((Main)game).container));
 				Player player = new Player(100, 100,
 						((Main) game).container);
-				player.inventory[0] = functions.createItem(2, 5, ((Main) game).container, 0);//DELETE IT DONT FORGET
-				player.inventory[1] = functions.createItem(4, 1, ((Main) game).container, 0);
+				player.inventory[0] = Functions.createItem(2, 5, ((Main) game).container, 0);//DELETE IT DONT FORGET
+				player.inventory[1] = Functions.createItem(4, 1, ((Main) game).container, 0);
 				wrld = new BufferedWorld(objects,new Vector<Mob>(), player,
 						String.valueOf(menu[1].length - 1) + ".wrld", 12f, 0f,
 						new Vector<Item>(),0,0);

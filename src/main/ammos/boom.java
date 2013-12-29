@@ -5,12 +5,12 @@ import java.util.Vector;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 
-import main.Ammo;
+import main.AbstractAmmo;
 import main.ImageContainer;
 import main.Item;
-import main.functions;
+import main.Functions;
 
-public class boom extends Ammo {
+public class boom extends AbstractAmmo {
 
 	public boom(float AngularSpeed, float angle, float worldAngle, ImageContainer container,
 			Circle world) throws SlickException {
@@ -21,7 +21,7 @@ public class boom extends Ammo {
 
 	@Override
 	public void drop(ImageContainer container, Vector<Item> items) {
-		items.add(functions.createItem(2, 1, container, (int) angle));
+		items.add(Functions.createItem(2, 1, container, (int) angle));
 	}
 
 }

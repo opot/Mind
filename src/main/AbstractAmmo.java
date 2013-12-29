@@ -6,13 +6,13 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 
-public abstract class Ammo extends GameObject{
+public abstract class AbstractAmmo extends GameObject{
 
-	float AngularSpeed;
-	float falling = 50;
+	private float AngularSpeed;
+	private float falling = 50;
 	public int damage = 10;
 
-	public Ammo(float AngularSpeed, float angle, float worldAngle, Image shot,Circle world,float falling)
+	public AbstractAmmo(float AngularSpeed, float angle, float worldAngle, Image shot,Circle world,float falling)
 			throws SlickException {
 
 		this.falling = falling;
@@ -28,7 +28,7 @@ public abstract class Ammo extends GameObject{
 		rect.addPoint(0, 0);
 	}
 
-	public boolean update(float delta, float worldAngle, Circle world) {
+	public boolean update(final float delta,final  float worldAngle, final Circle world) {
 		super.createRect(world, worldAngle);
 		anim.update(delta);
 		angle = angle + AngularSpeed * delta / world.radius;

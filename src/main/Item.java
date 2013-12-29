@@ -28,6 +28,6 @@ public abstract class Item extends GameObject {
 		super.createRect(world, rotation);
 	}
 	
-	public abstract void use(Vector<Ammo> shots, float angle, ImageContainer container,Player player, Circle world,Vector<AreaEffect> areas) throws SlickException;
+	public abstract void use(Vector<AbstractAmmo> shots, float angle, ImageContainer container,Player player, Circle world,Vector<AreaEffect> areas) throws SlickException;
 	
 }

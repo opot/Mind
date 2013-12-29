@@ -4,15 +4,15 @@ import java.util.Vector;
 
 import org.newdawn.slick.SlickException;
 
-import main.Ammo;
+import main.AbstractAmmo;
 import main.ImageContainer;
 import main.Item;
 import main.Sprite;
-import main.functions;
+import main.Functions;
 
 public class blackman extends HostileMob{
 
-	public blackman(float angle, float worldAngle, ImageContainer container, Vector<Ammo> ammos)
+	public blackman(float angle, float worldAngle, ImageContainer container, Vector<AbstractAmmo> ammos)
 			throws SlickException {
 		super(angle, worldAngle, container, ammos);
 		id = 2;
@@ -27,7 +27,7 @@ public class blackman extends HostileMob{
 
 	@Override
 	public void drop(Vector<Item> items, ImageContainer container) {
-		items.add(functions.createItem(3, 1, container, (int) angle));
+		items.add(Functions.createItem(3, 1, container, (int) angle));
 	}
 
 }

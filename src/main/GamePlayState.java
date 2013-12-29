@@ -4,7 +4,7 @@ import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.util.Vector;
 
-import main.functions;
+import main.Functions;
 import main.things.Nothing;
 import main.things.Tree;
 
@@ -26,8 +26,8 @@ public class GamePlayState extends BasicGameState {
 	MobSpawner spwn;
 	Vector<Thing> objects;
 	Vector<AreaEffect> areas;
-	Vector<Ammo> playerAmmos = null;
-	Vector<Ammo> mobAmmos = null;
+	Vector<AbstractAmmo> playerAmmos = null;
+	Vector<AbstractAmmo> mobAmmos = null;
 	Vector<Mob> mobs = null;
 	Vector<Item> items = null;
 	Player player = null;
@@ -55,8 +55,8 @@ public class GamePlayState extends BasicGameState {
 		ImageContainer container = ((Main) game).container;
 
 		this.Score = wrld.Score;
-		playerAmmos = new Vector<Ammo>();
-		mobAmmos = new Vector<Ammo>();
+		playerAmmos = new Vector<AbstractAmmo>();
+		mobAmmos = new Vector<AbstractAmmo>();
 		mobs = new Vector<Mob>();
 		areas = new Vector<AreaEffect>();
 		world = new Circle(gc.getWidth() / 2, gc.getHeight() / 2,
@@ -67,13 +67,13 @@ public class GamePlayState extends BasicGameState {
 		player = new Player(100, 100, container);
 		
 		for (int i = 0; i <= 24 && wrld.playerInventory[i][0] != null; i++){
-			player.inventory[i] = functions.createItem(
+			player.inventory[i] = Functions.createItem(
 					wrld.playerInventory[i][0], wrld.playerInventory[i][1],
 					container,0);
 		}
 		
 		for(int i = 0;i<wrld.mobs.length;i++)
-			mobs.add(functions.createMobById(wrld.mobs[i][0], wrld.mobs[i][1], container, mobAmmos));
+			mobs.add(Functions.createMobById(wrld.mobs[i][0], wrld.mobs[i][1], container, mobAmmos));
 			
 		player.current = 0;
 		player.hp = wrld.hp;
@@ -81,7 +81,7 @@ public class GamePlayState extends BasicGameState {
 		objects = new Vector<Thing>();
 		
 		for (int i = 0; i <= wrld.ids.length - 1; i++)
-			objects.add(functions.createThingById(((Main) game).container,
+			objects.add(Functions.createThingById(((Main) game).container,
 					wrld.ids[i]));
 		for (int i = 0; i < objects.size(); i++)
 			objects.get(i).setAngle(360 / (float) objects.size() * i);
@@ -89,7 +89,7 @@ public class GamePlayState extends BasicGameState {
 		items = new Vector<Item>();
 		if (wrld.worldInventory != null)
 			for (int i = 0; i < wrld.worldInventory.length; i++)
-				items.add(functions.createItem(wrld.worldInventory[i][0],
+				items.add(Functions.createItem(wrld.worldInventory[i][0],
 						wrld.worldInventory[i][1], container,
 						wrld.worldInventory[i][2]));
 		
@@ -172,7 +172,7 @@ public class GamePlayState extends BasicGameState {
 		if (time.update(delta) == 1) {
 			world.setRadius(world.getRadius() + 100);
 			while (objects.size() <= (int) (2 * Math.PI * world.radius / 100))
-				objects.add(functions
+				objects.add(Functions
 						.createRandomThing(((Main) game).container));
 			for (int i = 0; i < objects.size(); i++)
 				objects.get(i).setAngle(360 / (float) objects.size() * i);
@@ -367,9 +367,9 @@ public class GamePlayState extends BasicGameState {
 
 	private void save(Main game) throws SlickException {
 		if (playerAmmos.size() != 0)
-            for(Ammo a:playerAmmos)
+            for(AbstractAmmo a:playerAmmos)
 				if (a instanceof main.ammos.boom)
-					items.add(functions.createItem(2, 1, new ImageContainer(),
+					items.add(Functions.createItem(2, 1, new ImageContainer(),
 							(int) a.angle));
 		BufferedWorld buf = new BufferedWorld(objects, mobs ,player, name,
 				time.CurrentTime, world_mask.getRotation(), items, Score,

@@ -10,14 +10,14 @@ import main.mobs.*;
 public class MobSpawner implements Runnable {
 
 	Vector<Mob> mobs = null;
-	Vector<Ammo> ammos = null;
+	Vector<AbstractAmmo> ammos = null;
 	TimeMask time = null;
 	ImageContainer container;
 	Random r = new Random();
 	public boolean isSpawning = true;
 	public boolean isAlive = true;
 
-	public MobSpawner(Vector<Mob> mobs,Vector<Ammo> ammos , TimeMask time, ImageContainer container) {
+	public MobSpawner(Vector<Mob> mobs,Vector<AbstractAmmo> ammos , TimeMask time, ImageContainer container) {
 		this.mobs = mobs;
 		this.time = time;
 		this.ammos = ammos;

@@ -16,7 +16,7 @@ import main.things.Nothing;
 import main.things.Oak;
 import main.things.Spruce;
 
-public class functions {
+public class Functions {
 
 	public static Thing createRandomThing(ImageContainer container)
 			throws SlickException {
@@ -43,61 +43,35 @@ public class functions {
 	}
 
 	public static Item createItem(int id, int Stack, ImageContainer container,
-			Integer angle) {
-		if (id == 1) {
-			drug d = new drug(container.getImage("items/drug"), Stack);
-			d.angle = angle;
-			return d;
-		}
-		if (id == 2) {
-			boom d = new boom(container.getImage("items/boom"), Stack);
-			d.angle = angle;
-			return d;
-		}
-		if (id == 3) {
-			blackhole d = new blackhole(container.getImage("items/blackhole"),
+			final Integer angle) {
+		Item item = null;
+		if (id == 1) 
+			item = new drug(container.getImage("items/drug"), Stack);
+		if (id == 2) 
+			item = new boom(container.getImage("items/boom"), Stack);
+		if (id == 3) 
+			item = new blackhole(container.getImage("items/blackhole"),
 					Stack);
-			d.angle = angle;
-			return d;
-		}
-		if (id == 4) {
-			axe d = new axe(container.getImage("items/axe"), 1);
-			d.angle = angle;
-			return d;
-		}
-		if (id == 5) {
-			wood d = new wood(container.getImage("items/wood"), Stack);
-			d.angle = angle;
-			return d;
-		}
-		if (id == 6) {
-			RainbowDust d = new RainbowDust(
+		if (id == 4) 
+			item = new axe(container.getImage("items/axe"), 1);
+		if (id == 5) 
+			item = new wood(container.getImage("items/wood"), Stack);
+		if (id == 6) 
+			item = new RainbowDust(
 					container.getImage("items/rainbow_dust"), Stack);
-			d.angle = angle;
-			return d;
-		}
-		if (id == 7) {
-			BlackmanDust d = new BlackmanDust(
+		if (id == 7) 
+			item = new BlackmanDust(
 					container.getImage("items/blackstone_dust"), Stack);
-			d.angle = angle;
-			return d;
-		}
-		if (id == 8) {
-			Dynamite d = new Dynamite(container.getImage("items/TNT"), Stack);
-			d.angle = angle;
-			return d;
-		}
-		if (id == 9) {
-			stones d = new stones(container.getImage("items/stones"), Stack);
-			d.angle = angle;
-			return d;
-		}
-
-		return null;
+		if (id == 8) 
+			item = new Dynamite(container.getImage("items/TNT"), Stack);
+		if (id == 9) 
+			item = new stones(container.getImage("items/stones"), Stack);
+		item.angle = angle;
+		return item;
 	}
 
 	public static Mob createMobById(int id, float angle,
-			ImageContainer container, Vector<Ammo> ammo) throws SlickException {
+			ImageContainer container, Vector<AbstractAmmo> ammo) throws SlickException {
 		Mob mob = null;
 		if (id == 1)
 			mob = new Nyan(angle, 0, container);
@@ -121,13 +95,13 @@ public class functions {
 
 		for (int i = 2; i <= 8; i++) {
 			recipe = getRecipe(i, container);
-			boolean Accepted = true;
+			boolean accepted = true;
 			if (recipe != null)
 				if (buf.size() == recipe.size()) {
 					for (int j = 0; j <= buf.size() - 1; j++)
 						if (buf.get(j).id != recipe.get(j).id)
-							Accepted = false;
-					if (Accepted) {
+							accepted = false;
+					if (accepted) {
 						for (int j = 0; j <= buf.size() - 1; j++)
 							buf.get(j).Stack--;
 						for (int j = 0; j <= buf.size() - 1; j++)
@@ -155,18 +129,19 @@ public class functions {
 			recipe.add(createItem(5, 1, container, 0));
 		if (id == 3)
 			return null;
-		if(id == 4){
-			return null;//add after some time
+		if (id == 4) {
+			return null;// add after some time
 		}
-		if(id == 5)
-			return null;;
-		if(id == 6)
-			recipe.add(createItem(1,1,container,0));
-		if(id == 7)
-			recipe.add(createItem(3,1,container,0));
-		if(id == 8){
-			recipe.add(createItem(6,1,container,0));
-			recipe.add(createItem(7,1,container,0));
+		if (id == 5)
+			return null;
+		;
+		if (id == 6)
+			recipe.add(createItem(1, 1, container, 0));
+		if (id == 7)
+			recipe.add(createItem(3, 1, container, 0));
+		if (id == 8) {
+			recipe.add(createItem(6, 1, container, 0));
+			recipe.add(createItem(7, 1, container, 0));
 		}
 		return recipe;
 	}

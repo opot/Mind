@@ -6,7 +6,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 
-import main.Ammo;
+import main.AbstractAmmo;
 import main.AreaEffect;
 import main.ImageContainer;
 import main.Item;
@@ -21,7 +21,7 @@ public class axe extends Item {
 	}
 
 	@Override
-	public void use(Vector<Ammo> shots, float angle, ImageContainer container,
+	public void use(Vector<AbstractAmmo> shots, float angle, ImageContainer container,
 			Player player, Circle world, Vector<AreaEffect> areas)
 			throws SlickException {
 		if(player.melee==null)

@@ -5,11 +5,11 @@ import java.util.Vector;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 
-import main.Ammo;
+import main.AbstractAmmo;
 import main.ImageContainer;
 import main.Item;
 
-public class blackhole extends Ammo {
+public class blackhole extends AbstractAmmo {
 
 	public blackhole(float AngularSpeed, float angle, float worldAngle, ImageContainer container,
 			Circle world) throws SlickException {

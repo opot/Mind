@@ -5,7 +5,7 @@ import java.util.Vector;
 import main.ImageContainer;
 import main.Item;
 import main.Sprite;
-import main.functions;
+import main.Functions;
 
 import org.newdawn.slick.SlickException;
 
@@ -27,7 +27,7 @@ public class Nyan extends NeutralMob {
 	public void drop(Vector<Item> items,ImageContainer container) {
 		int count = rand.nextInt(3);
 		if(count>1)
-			items.add(functions.createItem(1, count, container, (int)this.angle));
+			items.add(Functions.createItem(1, count, container, (int)this.angle));
 	}
 
 }

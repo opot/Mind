@@ -16,7 +16,7 @@ public class BlackmanDust extends Item {
     }
 
     @Override
-    public void use(Vector<Ammo> shots, float angle, ImageContainer container, Player player, Circle world, Vector<AreaEffect> areas) throws SlickException {
+    public void use(Vector<AbstractAmmo> shots, float angle, ImageContainer container, Player player, Circle world, Vector<AreaEffect> areas) throws SlickException {
 
     }
 }

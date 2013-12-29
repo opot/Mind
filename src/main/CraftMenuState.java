@@ -36,7 +36,7 @@ public class CraftMenuState extends BasicGameState {
 		player = new Item[5][5];
 		for (int i = 0; i <= 24; i++)
 			if (wrld.playerInventory[i][0] != null)
-				player[i % 5][i / 5] = functions.createItem(
+				player[i % 5][i / 5] = Functions.createItem(
 						wrld.playerInventory[i][0], wrld.playerInventory[i][1],
 						container, 0);
 
@@ -101,7 +101,7 @@ public class CraftMenuState extends BasicGameState {
 			mouse.addPoint(input.getMouseX() + 1, input.getMouseY() + 1);
 			mouse.addPoint(input.getMouseX(), input.getMouseY() + 1);
 			if (make.contains(mouse))
-				workbench = functions.craft(workbench, ((Main) game).container);
+				workbench = Functions.craft(workbench, ((Main) game).container);
 		}
 		for (int i = 0; i <= 4; i++)
 			for (int j = 0; j <= 4; j++)
