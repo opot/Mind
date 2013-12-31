@@ -19,6 +19,7 @@ public abstract class HostileMob extends Mob {
 	float cooldown = 1000;
 	Vector<AbstractAmmo> ammos;
 	ImageContainer container;
+	public AbstractAmmo use;
 
 	public HostileMob(float angle, float worldAngle, ImageContainer container, Vector<AbstractAmmo> ammos)
 			throws SlickException {
@@ -88,7 +89,7 @@ public abstract class HostileMob extends Mob {
 				}
 				if(cooldown>=1000){
 					cooldown-=1000;
-					ammos.add(new blackhole(direction,this.angle,0,container,world));
+					ammos.add(use.copy(direction,this.angle,0,container,world));
 				}
 			}
 			anim.update(delta);

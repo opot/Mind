@@ -44,12 +44,17 @@ public class MobSpawner implements Runnable {
 	}
 
 	public void spawn() throws SlickException {
+		int a = r.nextInt(2);
+		if(a == 1){
 		if (time.CurrentTime > 22 || time.CurrentTime < 6)
 			synchronized(ammos){
 				mobs.add(new blackman(r.nextInt(360), r.nextInt(360), container,ammos));
 			}
 		if (time.CurrentTime > 6 && time.CurrentTime < 22)
 			mobs.add(new Nyan(r.nextInt(360), r.nextInt(360), container));
+		}else
+			mobs.add(new Santa(r.nextInt(360), r.nextInt(360), container,ammos));
+			
 	}
 
 }

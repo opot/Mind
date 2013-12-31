@@ -3,12 +3,15 @@ package main.mobs;
 import java.util.Vector;
 
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Circle;
 
 import main.AbstractAmmo;
 import main.ImageContainer;
 import main.Item;
 import main.Sprite;
 import main.Functions;
+import main.ammos.Present;
+import main.ammos.blackhole;
 
 public class blackman extends HostileMob{
 
@@ -23,6 +26,7 @@ public class blackman extends HostileMob{
 		anim.setAnimActive(true);
 		super.width = anim.getWidth();
 		super.height = anim.getHeigth();
+		this.use = new blackhole(0,0,0,container,new Circle(0,0,1));
 	}
 
 	@Override

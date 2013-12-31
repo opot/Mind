@@ -2,6 +2,7 @@ package main.ammos;
 
 import java.util.Vector;
 
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 
@@ -22,6 +23,12 @@ public class boom extends AbstractAmmo {
 	@Override
 	public void drop(ImageContainer container, Vector<Item> items) {
 		items.add(Functions.createItem(2, 1, container, (int) angle));
+	}
+
+	@Override
+	public AbstractAmmo copy(float AngularSpeed, float angle, float worldAngle,
+			ImageContainer container, Circle world) throws SlickException {
+		return new boom(AngularSpeed,angle,worldAngle,container,world);
 	}
 
 }

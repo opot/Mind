@@ -36,6 +36,7 @@ public abstract class AbstractAmmo extends GameObject{
 		return rise<0;
 	}
 
+	public abstract AbstractAmmo copy(float AngularSpeed, float angle, float worldAngle, ImageContainer container,Circle world)throws SlickException;
 	public abstract void drop(ImageContainer container, Vector<Item> items);
 	
 }

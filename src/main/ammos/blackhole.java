@@ -21,4 +21,10 @@ public class blackhole extends AbstractAmmo {
 	@Override
 	public void drop(ImageContainer container, Vector<Item> items) {}
 
+	@Override
+	public AbstractAmmo copy(float AngularSpeed, float angle, float worldAngle,
+			ImageContainer container, Circle world) throws SlickException {
+		return new blackhole(AngularSpeed,angle,worldAngle,container,world);
+	}
+	
 }
