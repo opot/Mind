@@ -11,6 +11,7 @@ public class ImageContainer {
 	Vector<Image> images = new Vector<Image>();
 	public Music nyan = null;
 	public Music end = null;
+	public Music back = null;
 	
 	public ImageContainer() throws SlickException{
 		try {
@@ -25,10 +26,9 @@ public class ImageContainer {
 		images.get(2).setName("santa");
 		images.get(3).setName("present");
 		images.get(4).setName("sphere");
-		//nyan = new Music("res/nyan.ogg");
-		//end = new Music("res/end.ogg");
-		
-		//Video splash;
+		nyan = new Music("res/nyan.ogg");
+		end = new Music("res/end.ogg");
+		back = new Music("res/back.ogg");
 	}
 	
 	public Image getImage(String name){

@@ -8,6 +8,7 @@ import org.newdawn.slick.geom.Polygon;
 
 import main.items.*;
 import main.mobs.Nyan;
+import main.mobs.Santa;
 import main.mobs.blackman;
 import main.things.Birch;
 import main.things.Bush;
@@ -77,6 +78,8 @@ public class Functions {
 			mob = new Nyan(angle, 0, container);
 		if (id == 2)
 			mob = new blackman(angle, 0, container, ammo);
+		if (id == 3)
+			mob = new Santa(angle, 0, container, ammo);
 		return mob;
 	}
 

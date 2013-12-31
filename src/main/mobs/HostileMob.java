@@ -6,7 +6,6 @@ import java.util.Vector;
 import main.AbstractAmmo;
 import main.ImageContainer;
 import main.Mob;
-import main.ammos.blackhole;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
