@@ -29,6 +29,7 @@ public class EndOfGameState extends BasicGameState {
 		music.play();
 		Main main = (Main) game;
 		File f = new File("res/Saves/" + main.buf.name);
+		System.out.println("res/Saves/" + main.buf.name);
 		if(f.exists())
 			f.delete();
 	}

@@ -1,16 +1,12 @@
 package main.items;
 
-import java.util.Vector;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Circle;
 
-import main.AbstractAmmo;
-import main.AreaEffect;
+import main.GamePlayState;
 import main.ImageContainer;
 import main.Item;
-import main.Player;
 
 public class boom extends Item {
 
@@ -20,11 +16,10 @@ public class boom extends Item {
 	}
 
 	@Override
-	public void use(Vector<AbstractAmmo> shots, float angle, ImageContainer container,
-			Player player, Circle world, Vector<AreaEffect> areas)
+	public void use(ImageContainer container, GamePlayState game)
 			throws SlickException {
-		player.armAdd = 50;
-		shots.add(new main.ammos.boom((player.direction)==0?-1:1,player.angle,angle,container,world));
+		game.player.armAdd = 50;
+		game.playerAmmos.add(new main.ammos.boom((game.player.direction)==0?-1:1,game.player.angle,angle,container,game.world));
 		Stack--;		
 	}
 

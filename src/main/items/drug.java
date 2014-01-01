@@ -1,16 +1,12 @@
 package main.items;
 
-import java.util.Vector;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Circle;
 
-import main.AbstractAmmo;
-import main.AreaEffect;
+import main.GamePlayState;
 import main.ImageContainer;
 import main.Item;
-import main.Player;
 
 public class drug extends Item {
 
@@ -20,11 +16,12 @@ public class drug extends Item {
 	}
 
 	@Override
-	public void use(Vector<AbstractAmmo> shots, float angle, ImageContainer container,
-			Player player, Circle world, Vector<AreaEffect> areas)
+	public void use(ImageContainer container, GamePlayState game)
 			throws SlickException {
 		container.nyan.play();
-		player.armAdd = 50;
+		if((game.player.hp+=20)>100)
+			game.player.hp = 100;
+		game.player.armAdd = 50;
 		Stack--;		
 	}
 

@@ -1,6 +1,5 @@
 package main;
 
-import java.util.Vector;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -28,6 +27,6 @@ public abstract class Item extends GameObject {
 		super.createRect(world, rotation);
 	}
 	
-	public abstract void use(Vector<AbstractAmmo> shots, float angle, ImageContainer container,Player player, Circle world,Vector<AreaEffect> areas) throws SlickException;
+	public abstract void use(ImageContainer container, GamePlayState game) throws SlickException;
 	
 }

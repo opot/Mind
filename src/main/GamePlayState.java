@@ -24,16 +24,16 @@ public class GamePlayState extends BasicGameState {
 
 	Thread spawner;
 	MobSpawner spwn;
-	Vector<Thing> objects;
-	Vector<AreaEffect> areas;
-	Vector<AbstractAmmo> playerAmmos = null;
-	Vector<AbstractAmmo> mobAmmos = null;
-	Vector<Mob> mobs = null;
-	Vector<Item> items = null;
-	Player player = null;
+	public Vector<Thing> objects;
+	public Vector<AreaEffect> areas;
+	public Vector<AbstractAmmo> playerAmmos = null;
+	public Vector<AbstractAmmo> mobAmmos = null;
+	public Vector<Mob> mobs = null;
+	public Vector<Item> items = null;
+	public Player player = null;
 	String name = "NoName";
 	Image world_mask = null;
-	Circle world = null;
+	public Circle world = null;
 	TimeMask time = null;
 	GUI gui = null;
 	boolean isMap = false;
@@ -228,9 +228,8 @@ public class GamePlayState extends BasicGameState {
 
 		if (input.isKeyPressed(Input.KEY_SPACE)
 				&& player.inventory[player.current] != null) {
-			player.inventory[player.current].use(playerAmmos,
-					world_mask.getRotation(), ((Main) game).container, player,
-					world, areas);
+			player.inventory[player.current].use(((Main) game).container,
+					this);
 			if (player.inventory[player.current].Stack == 0)
 				player.inventory[player.current] = null;
 		}
