@@ -26,9 +26,9 @@ public class ImageContainer {
 		images.get(2).setName("santa");
 		images.get(3).setName("present");
 		images.get(4).setName("sphere");
-		nyan = new Music("res/nyan.ogg");
-		end = new Music("res/end.ogg");
-		back = new Music("res/back.ogg");
+		//nyan = new Music("res/nyan.ogg");
+		//end = new Music("res/end.ogg");
+		//back = new Music("res/back.ogg");
 	}
 	
 	public Image getImage(String name){

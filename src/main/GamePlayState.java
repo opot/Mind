@@ -154,8 +154,8 @@ public class GamePlayState extends BasicGameState {
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
 
-		if(!((Main) game).container.back.playing()&&!((Main) game).container.nyan.playing())
-			((Main) game).container.back.play();
+		//if(!((Main) game).container.back.playing()&&!((Main) game).container.nyan.playing())
+			//((Main) game).container.back.play();
 		
 		if (player.hp <= 0) {
 			spwn.isAlive = false;

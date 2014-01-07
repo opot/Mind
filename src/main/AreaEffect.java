@@ -4,14 +4,12 @@ public abstract class AreaEffect extends GameObject {
 
 	int TTL;
 	
-	public AreaEffect(ImageContainer container,int TTL, Player player){
+	public AreaEffect(int TTL, float angle){
 		this.TTL = TTL;
-		
+		this.angle = angle;
 	}
 	
 	public  boolean update(GamePlayState game, float delta){
-		anim.update(delta);
-		
 		boolean result = false;
 		TTL-=delta;
 		if(TTL<=0)

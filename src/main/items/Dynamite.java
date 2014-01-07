@@ -15,6 +15,7 @@ public class Dynamite extends Item {
 
     @Override
     public void use(ImageContainer container, GamePlayState game) throws SlickException {
-
+    	//this.Stack--;
+    	game.areas.add(new main.AreaEffects.Dinamite(container,game.player.angle));
     }
 }
