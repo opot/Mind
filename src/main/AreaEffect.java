@@ -1,5 +1,7 @@
 package main;
 
+import org.newdawn.slick.state.StateBasedGame;
+
 public abstract class AreaEffect extends GameObject {
 
 	int TTL;
@@ -11,13 +13,13 @@ public abstract class AreaEffect extends GameObject {
 	
 	public  boolean update(GamePlayState game, float delta){
 		boolean result = false;
+		super.createRect(game.world, game.world_mask.getRotation());
 		TTL-=delta;
 		if(TTL<=0)
 			result = true;
-		
-		
-		
 		return result;
 	}
+	
+	public abstract void interract(GamePlayState game, StateBasedGame main);
 	
 }

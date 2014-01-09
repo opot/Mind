@@ -37,6 +37,7 @@ public class GamePlayState extends BasicGameState {
 	TimeMask time = null;
 	GUI gui = null;
 	boolean isMap = false;
+	boolean debug = false;
 	public float worldAngle = 0;
 
 	public int Score = 0;
@@ -46,7 +47,7 @@ public class GamePlayState extends BasicGameState {
 		return StateID;
 	}
 
-    @Override
+	@Override
 	public void enter(GameContainer gc, StateBasedGame game)
 			throws SlickException {
 		super.enter(gc, game);
@@ -65,34 +66,35 @@ public class GamePlayState extends BasicGameState {
 		worldAngle = wrld.rotation;
 		name = wrld.name;
 		player = new Player(100, 100, container);
-		
-		for (int i = 0; i <= 24 && wrld.playerInventory[i][0] != null; i++){
+
+		for (int i = 0; i <= 24 && wrld.playerInventory[i][0] != null; i++) {
 			player.inventory[i] = Functions.createItem(
 					wrld.playerInventory[i][0], wrld.playerInventory[i][1],
-					container,0);
+					container, 0);
 		}
-		
-		for(int i = 0;i<wrld.mobs.length;i++)
-			mobs.add(Functions.createMobById(wrld.mobs[i][0], wrld.mobs[i][1], container, mobAmmos));
-			
+
+		for (int i = 0; i < wrld.mobs.length; i++)
+			mobs.add(Functions.createMobById(wrld.mobs[i][0], wrld.mobs[i][1],
+					container, mobAmmos));
+
 		player.current = 0;
 		player.hp = wrld.hp;
 		player.angle = wrld.playerAngle;
 		objects = new Vector<Thing>();
-		
+
 		for (int i = 0; i <= wrld.ids.length - 1; i++)
 			objects.add(Functions.createThingById(((Main) game).container,
 					wrld.ids[i]));
 		for (int i = 0; i < objects.size(); i++)
 			objects.get(i).setAngle(360 / (float) objects.size() * i);
-		
+
 		items = new Vector<Item>();
 		if (wrld.worldInventory != null)
 			for (int i = 0; i < wrld.worldInventory.length; i++)
 				items.add(Functions.createItem(wrld.worldInventory[i][0],
 						wrld.worldInventory[i][1], container,
 						wrld.worldInventory[i][2]));
-		
+
 		time.CurrentTime = wrld.time;
 		gui = new GUI(player, ((Main) game).container);
 		spwn = new MobSpawner(mobs, mobAmmos, time, ((Main) game).container);
@@ -145,23 +147,25 @@ public class GamePlayState extends BasicGameState {
 			for (int i = 0; i <= areas.size() - 1; i++)
 				areas.get(i).draw(g, world_mask, world, gc.getWidth());
 		gui.draw(g);
-		g.drawString(
-				"Time :"+ (String.valueOf(time.CurrentTime) + "  ").substring(
+		g.drawString("Time :"+ (String.valueOf(time.CurrentTime) + "  ").substring(
 								0, 5), 20, 45);
+		if(debug)
+			Functions.drawDebug(g, this);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
 
-		//if(!((Main) game).container.back.playing()&&!((Main) game).container.nyan.playing())
-			//((Main) game).container.back.play();
-		
+		// if(!((Main) game).container.back.playing()&&!((Main)
+		// game).container.nyan.playing())
+		// ((Main) game).container.back.play();
+
 		if (player.hp <= 0) {
 			spwn.isAlive = false;
-			((Main) (game)).buf = new BufferedWorld(objects, mobs, player, name,
-					time.CurrentTime, world_mask.getRotation(), items, Score,
-					player.angle);
+			((Main) (game)).buf = new BufferedWorld(objects, mobs, player,
+					name, time.CurrentTime, world_mask.getRotation(), items,
+					Score, player.angle);
 			game.enterState(Main.ENDOFGAMESTATE);
 		}
 
@@ -206,6 +210,8 @@ public class GamePlayState extends BasicGameState {
 
 		if (input.isKeyPressed(Input.KEY_M))
 			isMap = !isMap;
+		if (input.isKeyPressed(Input.KEY_F3))
+				debug = !debug;
 		if (input.isKeyPressed(Input.KEY_I)) {
 			spwn.isAlive = false;
 			spwn.isSpawning = false;
@@ -228,8 +234,7 @@ public class GamePlayState extends BasicGameState {
 
 		if (input.isKeyPressed(Input.KEY_SPACE)
 				&& player.inventory[player.current] != null) {
-			player.inventory[player.current].use(((Main) game).container,
-					this);
+			player.inventory[player.current].use(((Main) game).container, this);
 			if (player.inventory[player.current].Stack == 0)
 				player.inventory[player.current] = null;
 		}
@@ -238,88 +243,78 @@ public class GamePlayState extends BasicGameState {
 		world.setY(gc.getHeight() / 2);
 		world_mask.setCenterOfRotation(world.radius, world.radius);
 		player.update(delta, world, gc.getInput(), world_mask.getRotation());
-		if (mobs.size() != 0)
-			for (int i = 0; i <= mobs.size() - 1; i++) {
-				mobs.get(i).update(delta, world_mask.getRotation(),
-						world.radius, world, sum);
-				if (player.melee != null)
-					if (player.melee.active)
-						if (mobs.get(i).rect.intersects(player.melee.rect)) {
-							mobs.get(i).hp -= player.melee.damage;
-							player.melee.active = false;
-							if (mobs.get(i).hp < 1) {
-								mobs.get(i)
-										.drop(items, ((Main) game).container);
-								mobs.remove(i);
-								Score += 1;
-							}
-						}
-			}
-		if (areas.size() != 0)
-			for (int i = 0; i <= areas.size() - 1; i++)
-				if (areas.get(i).update(this, delta))
-					areas.remove(i);
-		if (playerAmmos.size() != 0)
-			for (int i = 0; i <= playerAmmos.size() - 1; i++) {
-				if (playerAmmos.get(i).update(delta, world_mask.getRotation(),
-						world)) {
-					playerAmmos.get(i).drop(((Main) game).container, items);
-					playerAmmos.remove(i);
-				}
-				boolean sh = false;
-				for (int j = 0; j < mobs.size() && !sh; j++)
-					if (playerAmmos.get(i).rect.intersects(mobs.get(j).rect)) {
-						playerAmmos.get(i).drop(((Main) game).container, items);
-						mobs.get(j).hp -= playerAmmos.get(i).damage;
-						if (mobs.get(j).hp < 1) {
-							mobs.get(j).drop(items, ((Main) game).container);
-							mobs.remove(j);
+		for (int i = 0; i <= mobs.size() - 1; i++) {
+			mobs.get(i).update(delta, world_mask.getRotation(), world.radius,
+					world, sum);
+			if (player.melee != null)
+				if (player.melee.active)
+					if (mobs.get(i).rect.intersects(player.melee.rect)) {
+						mobs.get(i).hp -= player.melee.damage;
+						player.melee.active = false;
+						if (mobs.get(i).hp < 1) {
+							mobs.get(i).drop(items, ((Main) game).container);
+							mobs.remove(i);
 							Score += 1;
 						}
-						playerAmmos.remove(i);
-						sh = !sh;
 					}
-
+		}
+		for (int i = 0; i <= playerAmmos.size() - 1; i++) {
+			if (playerAmmos.get(i).update(delta, world_mask.getRotation(),
+					world)) {
+				playerAmmos.get(i).drop(((Main) game).container, items);
+				playerAmmos.remove(i);
 			}
-		if (mobAmmos.size() != 0)
-			for (int i = 0; i <= mobAmmos.size() - 1; i++) {
-				if (mobAmmos.get(i).update(delta, world_mask.getRotation(),
-						world)) {
-					mobAmmos.get(i).drop(((Main) game).container, items);
-					mobAmmos.remove(i);
-					continue;
+			boolean sh = false;
+			for (int j = 0; j < mobs.size() && !sh; j++)
+				if (playerAmmos.get(i).rect.intersects(mobs.get(j).rect)) {
+					playerAmmos.get(i).drop(((Main) game).container, items);
+					mobs.get(j).hp -= playerAmmos.get(i).damage;
+					if (mobs.get(j).hp < 1) {
+						mobs.get(j).drop(items, ((Main) game).container);
+						mobs.remove(j);
+						Score += 1;
+					}
+					playerAmmos.remove(i);
+					sh = !sh;
 				}
-				boolean sh = false;
-				for (int j = 0; j < mobAmmos.size() && !sh; j++)
-					if (mobAmmos.get(i).rect.intersects(player.rect)) {
-						player.hp -= mobAmmos.get(i).damage;
-						if (player.hp < 1)
-							player.hp = 0;
-						mobAmmos.remove(i);
-						sh = !sh;
-					}
 
+		}
+		for (int i = 0; i <= mobAmmos.size() - 1; i++) {
+			if (mobAmmos.get(i).update(delta, world_mask.getRotation(), world)) {
+				mobAmmos.get(i).drop(((Main) game).container, items);
+				mobAmmos.remove(i);
+				continue;
 			}
-		if (items.size() != 0)
-			for (int i = 0; i < items.size(); i++) {
-				items.get(i).update(world, world_mask.getRotation());
-				if (items.get(i).rect.intersects(player.rect)) {
-					for (int j = 0; j <= 24; j++)
-						if (player.inventory[j] != null)
-							if (player.inventory[j].id.equals(items.get(i).id)) {
-								player.inventory[j].Stack += items.get(i).Stack;
-								items.remove(i);
-								return;
-							}
-					for (int j = 0; j <= 63; j++)
-						if (player.inventory[j] == null) {
-							items.get(i).img.setRotation(0);
-							player.inventory[j] = items.get(i);
+			boolean sh = false;
+			for (int j = 0; j < mobAmmos.size() && !sh; j++)
+				if (mobAmmos.get(i).rect.intersects(player.rect)) {
+					player.hp -= mobAmmos.get(i).damage;
+					if (player.hp < 1)
+						player.hp = 0;
+					mobAmmos.remove(i);
+					sh = !sh;
+				}
+
+		}
+		for (int i = 0; i < items.size(); i++) {
+			items.get(i).update(world, world_mask.getRotation());
+			if (items.get(i).rect.intersects(player.rect)) {
+				for (int j = 0; j <= 24; j++)
+					if (player.inventory[j] != null)
+						if (player.inventory[j].id.equals(items.get(i).id)) {
+							player.inventory[j].Stack += items.get(i).Stack;
 							items.remove(i);
 							return;
 						}
-				}
+				for (int j = 0; j <= 63; j++)
+					if (player.inventory[j] == null) {
+						items.get(i).img.setRotation(0);
+						player.inventory[j] = items.get(i);
+						items.remove(i);
+						return;
+					}
 			}
+		}
 		for (int i = 0; i < objects.size(); i++) {
 			objects.get(i).createRect(world, world_mask.getRotation());
 			if (player.melee != null)
@@ -333,10 +328,18 @@ public class GamePlayState extends BasicGameState {
 							b.drop(items, ((Main) game).container);
 							Nothing n = new Nothing(((Main) game).container);
 							n.setAngle(b.angle);
-							objects.set(i,n);
+							objects.set(i, n);
 						}
 					}
 		}
+		if (areas.size() != 0)
+			for (int i = 0; i <= areas.size() - 1; i++)
+				if (areas.get(i).update(this, delta)) {
+					areas.remove(i);
+					i--;
+				} else {
+					areas.get(i).interract(this, game);
+				}
 	}
 
 	private void draw_map(GameContainer gc) throws SlickException {
@@ -369,11 +372,11 @@ public class GamePlayState extends BasicGameState {
 
 	private void save(Main game) throws SlickException {
 		if (playerAmmos.size() != 0)
-            for(AbstractAmmo a:playerAmmos)
+			for (AbstractAmmo a : playerAmmos)
 				if (a instanceof main.ammos.boom)
 					items.add(Functions.createItem(2, 1, new ImageContainer(),
 							(int) a.angle));
-		BufferedWorld buf = new BufferedWorld(objects, mobs ,player, name,
+		BufferedWorld buf = new BufferedWorld(objects, mobs, player, name,
 				time.CurrentTime, world_mask.getRotation(), items, Score,
 				player.angle);
 		game.buf = buf;

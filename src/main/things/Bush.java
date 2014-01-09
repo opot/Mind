@@ -20,6 +20,7 @@ public class Bush extends Thing {
 		this.id = 3;
 		SubId = new Random().nextInt(3)+1;
 		img = container.getImage("Things/bush_"+String.valueOf(SubId));
+		hp = 30;
 	}
 
 	@Override

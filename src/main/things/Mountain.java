@@ -15,6 +15,7 @@ public class Mountain extends Thing {
 		super(container);
 		id = 4;
 		img = container.getImage("Things/mountaines");
+		hp = 100;
 	}
 
 	@Override

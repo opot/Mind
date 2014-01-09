@@ -18,9 +18,9 @@ public class Player extends GameObject {
 	public int current = 0;
 	public int direction = 0;
 	public int armAdd = 0;
-	private int armAngle = 0;
+	public int armAngle = 0;
 	private int armSpeed = 1;
-	private int legAngle = 0;
+	public int legAngle = 0;
 	private int legSpeed = 1;
 
 	public Player(float width, float height, ImageContainer container)
@@ -43,10 +43,22 @@ public class Player extends GameObject {
 
 		super.createRect(world, rotation);
 
-		if (armAngle > 180 || armAngle < 0)
-			armSpeed *= -1;
-		if (legAngle > 180 || legAngle < 0)
-			legSpeed *= -1;
+			if(armAngle>180){
+				armAngle = 179;
+				armAngle *= -1;
+			}
+			if(armAngle<0){
+				armAngle = 1;
+				armAngle *= -1;
+			}
+			if(legAngle>180){
+				legAngle = 179;
+				legAngle *= -1;
+			}
+			if(legAngle<0){
+				legAngle = 1;
+				legAngle *= -1;
+			}
 		if (input.isKeyDown(Input.KEY_LEFT)) {
 			angle-=20*delta/world.radius;
 			armAngle += armSpeed * delta / 3;

@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 public abstract class Thing extends GameObject {
 
 	public int id;
+	public int hp;
 	
 	public Thing(ImageContainer container) throws SlickException {
 		super.rect.addPoint(0, 0);

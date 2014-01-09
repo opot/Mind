@@ -10,7 +10,6 @@ import main.ImageContainer;
 import main.Item;
 import main.Sprite;
 import main.Functions;
-import main.ammos.Present;
 import main.ammos.blackhole;
 
 public class blackman extends HostileMob{

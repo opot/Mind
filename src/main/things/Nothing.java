@@ -14,6 +14,7 @@ public class Nothing extends Thing {
 		super(container);
 		id = -1;
 		img = container.getImage("Things/nothing");
+		hp  = 1000;
 	}
 
 	@Override
