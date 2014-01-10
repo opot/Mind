@@ -104,13 +104,13 @@ public class Functions {
 			if (recipe != null)
 				if (buf.size() == recipe.size()) {
 					for (int j = 0; j <= buf.size() - 1; j++)
-						if (buf.get(j).id != recipe.get(j).id)
+						if (buf.get(j).id != recipe.get(j).id||buf.get(j).Stack < recipe.get(j).Stack)
 							accepted = false;
 					if (accepted) {
 						for (int j = 0; j <= buf.size() - 1; j++)
-							buf.get(j).Stack--;
+							buf.get(j).Stack-=recipe.get(j).Stack;
 						for (int j = 0; j <= buf.size() - 1; j++)
-							if (buf.get(j).Stack == 0) {
+							if (buf.get(j).Stack <= 0) {
 								buf.remove(j);
 								j--;
 							}
@@ -135,13 +135,13 @@ public class Functions {
 							}
 					
 								for (int j = 0; j <= buf.size() - 1; j++)
-									if (buf.get(j).id != recipe.get(j).id)
+									if (buf.get(j).id != recipe.get(j).id||buf.get(j).Stack < recipe.get(j).Stack)
 										accepted = false;
 								if (accepted) {
 									for (int j = 0; j <= buf.size() - 1; j++)
-										buf.get(j).Stack--;
+										buf.get(j).Stack-=recipe.get(j).Stack;
 									for (int j = 0; j <= buf.size() - 1; j++)
-										if (buf.get(j).Stack == 0) {
+										if (buf.get(j).Stack <= 0) {
 											buf.remove(j);
 											j--;
 										}
@@ -162,11 +162,12 @@ public class Functions {
 	public static Vector<Item> getRecipe(int id, ImageContainer container) {
 		Vector<Item> recipe = new Vector<Item>();
 		if (id == 2)
-			recipe.add(createItem(5, 1, container, 0));
+			recipe.add(createItem(5, 2, container, 0));
 		if (id == 3)
 			return null;
 		if (id == 4) {
-			return null;// add after some time
+			recipe.add(createItem(5,2,container,0));
+			recipe.add(createItem(9,1,container,0));
 		}
 		if (id == 5)
 			return null;

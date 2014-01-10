@@ -2,10 +2,12 @@ package main.AreaEffects;
 
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.state.StateBasedGame;
 
 import main.AreaEffect;
+import main.Functions;
 import main.GamePlayState;
 import main.ImageContainer;
 import main.Main;
@@ -44,7 +46,7 @@ public class Dinamite extends AreaEffect {
 	}
 
 	@Override
-	public void interract(GamePlayState game, StateBasedGame main) {
+	public void interract(GamePlayState game, StateBasedGame main) throws SlickException {
 		if (fireTime <= 0) {
 			if (rect.intersects(game.player.rect))
 				game.player.hp -= damage;
@@ -66,8 +68,7 @@ public class Dinamite extends AreaEffect {
 					if (game.objects.get(i).hp < 1) {
 						game.objects.get(i).drop(game.items,
 								((Main) main).container);
-						game.objects.remove(i);
-						i--;
+						game.objects.set(i, Functions.createThingById(((Main)main).container,-1));
 					}
 				}
 			}

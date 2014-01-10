@@ -1,5 +1,6 @@
 package main;
 
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public abstract class AreaEffect extends GameObject {
@@ -20,6 +21,6 @@ public abstract class AreaEffect extends GameObject {
 		return result;
 	}
 	
-	public abstract void interract(GamePlayState game, StateBasedGame main);
+	public abstract void interract(GamePlayState game, StateBasedGame main) throws SlickException;
 	
 }
