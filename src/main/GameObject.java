@@ -1,5 +1,6 @@
 package main;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.geom.Circle;
@@ -47,8 +48,12 @@ public abstract class GameObject {
 				anim.draw(g);
 			}
 		}
-		if(game.debug)
+		if(game.debug){
+			g.setColor(Color.white);
+			if(rect.intersects(game.player.rect))
+				g.setColor(Color.green);
 			g.fill(rect);
+		}
 	}
 
 	public void createRect(Circle world, float rotation){

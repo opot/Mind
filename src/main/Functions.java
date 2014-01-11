@@ -40,6 +40,8 @@ public class Functions {
 			return new Bush(container);
 		if (id == 4)
 			return new Mountain(container);
+		if (id == 5)
+			return new main.things.Wall(container);
 		if (id == -1)
 			return new Nothing(container);
 		return null;
@@ -49,7 +51,7 @@ public class Functions {
 			final Integer angle) {
 		Item item = null;
 		if (id == 1) 
-			item = new drug(container.getImage("items/drug"), Stack);
+			item = new Drug(container.getImage("items/drug"), Stack);
 		if (id == 2) 
 			item = new boom(container.getImage("items/boom"), Stack);
 		if (id == 3) 
@@ -58,7 +60,7 @@ public class Functions {
 		if (id == 4) 
 			item = new axe(container.getImage("items/axe"), 1);
 		if (id == 5) 
-			item = new wood(container.getImage("items/wood"), Stack);
+			item = new Wood(container.getImage("items/wood"), Stack);
 		if (id == 6) 
 			item = new RainbowDust(
 					container.getImage("items/rainbow_dust"), Stack);
@@ -69,6 +71,8 @@ public class Functions {
 			item = new Dynamite(container.getImage("items/TNT"), Stack);
 		if (id == 9) 
 			item = new stones(container.getImage("items/stones"), Stack);
+		if(id == 10)
+			item = new Wall(container.getImage("items/wall"), Stack);
 		item.angle = angle;
 		return item;
 	}
@@ -98,7 +102,7 @@ public class Functions {
 					buf.set(i - 1, b);
 				}
 
-		for (int i = 2; i <= 8; i++) {
+		for (int i = 2; i <= 10; i++) {
 			recipe = getRecipe(i, container);
 			boolean accepted = true;
 			if (recipe != null)
@@ -180,6 +184,10 @@ public class Functions {
 			recipe.add(createItem(6, 1, container, 0));
 			recipe.add(createItem(7, 1, container, 0));
 		}
+		if(id == 9)
+			return null;
+		if(id == 10)
+			recipe.add(createItem(9,4,container,0));
 		return recipe;
 	}
 

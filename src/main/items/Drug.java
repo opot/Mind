@@ -8,17 +8,22 @@ import main.GamePlayState;
 import main.ImageContainer;
 import main.Item;
 
-public class wood extends Item {
+public class Drug extends Item {
 
-	public wood(Image img, int stack) {
+	public Drug(Image img, int stack) {
 		super(img, stack);
-		id = 5;
+		id = 1;
 	}
 
 	@Override
 	public void use(ImageContainer container, GamePlayState game)
 			throws SlickException {
-		
+		container.nyan.play();
+		if((game.player.hp+=20)>100)
+			game.player.hp = 100;
+		game.player.armAdd = 50;
+		Stack--;		
 	}
+
 
 }
