@@ -25,29 +25,30 @@ public abstract class GameObject {
 		}
 	}
 	
-	public void draw(Graphics g, Image world_mask, Circle world, int width) {
+	public void draw(Graphics g, Image world_mask, GamePlayState game, int width) {
 		if (img != null) {
 			img.setCenterOfRotation(img.getWidth()/2, img.getHeight());
-			img.setRotation(world_mask.getRotation() + angle);
-			float x = (float) (world.getCenterX() - img.getWidth()/2 + (world.radius - 5)
+			img.setRotation(game.world_mask.getRotation() + angle);
+			float x = (float) (game.world.getCenterX() - img.getWidth()/2 + (game.world.radius - 5)
 					* Math.sin(Math.toRadians(img.getRotation())));
 			if (x > -100 && x < width + 50)
 				img.draw(x,
-						(float) (world.getCenterY() - img.getHeight() - (world.radius - 5)
+						(float) (game.world.getCenterY() - img.getHeight() - (game.world.radius - 5)
 								* Math.cos(Math.toRadians(img.getRotation()))));
 		}else{
-			float angle = this.angle + world_mask.getRotation();
+			float angle = this.angle + game.world_mask.getRotation();
 			anim.setRotation(angle);
-			float x = (float) (world.getCenterX() - anim.getWidth() / 2 + (world.radius - 5 + rise)
+			float x = (float) (game.world.getCenterX() - anim.getWidth() / 2 + (game.world.radius - 5 + rise)
 					* Math.sin(Math.toRadians(angle)));
 			if (x > -200 && x < width + 50) {
 				anim.setX(x);
-				anim.setY((float) (world.getCenterY() - anim.getHeigth() - (world.radius - 5 + rise)
+				anim.setY((float) (game.world.getCenterY() - anim.getHeigth() - (game.world.radius - 5 + rise)
 						* Math.cos(Math.toRadians(angle))));
 				anim.draw(g);
 			}
 		}
-		//g.fill(rect);
+		if(game.debug)
+			g.fill(rect);
 	}
 
 	public void createRect(Circle world, float rotation){

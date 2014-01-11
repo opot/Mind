@@ -21,15 +21,15 @@ public abstract class Mob extends GameObject {
 		rect.addPoint(0, 0);
 	}
 	
-	public void draw(Graphics g, Image world_mask, Circle world, int width) {
-		super.draw(g, world_mask, world, width);
+	public void draw(Graphics g, Image world_mask, GamePlayState game, int width) {
+		super.draw(g, world_mask, game, width);
 		hp_mask.setCenterOfRotation(hp_mask.getWidth()/2, hp_mask.getHeight());
 		hp_mask.setRotation(world_mask.getRotation() + angle);
-		float x = (float) (world.getCenterX() - hp_mask.getWidth()/2 + (world.radius + anim.getHeigth())
+		float x = (float) (game.world.getCenterX() - hp_mask.getWidth()/2 + (game.world.radius + anim.getHeigth())
 				* Math.sin(Math.toRadians(hp_mask.getRotation())) - anim.getWidth()/2* Math.cos(Math.toRadians(hp_mask.getRotation())));
 		if (x > -100 && x < width + 50)
 			hp_mask.draw(x,
-					(float) (world.getCenterY() - hp_mask.getHeight() - (world.radius + anim.getHeigth())
+					(float) (game.world.getCenterY() - hp_mask.getHeight() - (game.world.radius + anim.getHeigth())
 							* Math.cos(Math.toRadians(hp_mask.getRotation()))- anim.getWidth()/2* Math.sin(Math.toRadians(hp_mask.getRotation()))),hp,25);
 	}
 	

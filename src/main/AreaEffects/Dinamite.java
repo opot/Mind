@@ -28,10 +28,10 @@ public class Dinamite extends AreaEffect {
 	}
 
 	@Override
-	public void draw(Graphics g, Image world_mask, Circle world, int width) {
+	public void draw(Graphics g, Image world_mask, GamePlayState game, int width) {
 		if (fireTime > 0)
 			this.img = dinam;
-		super.draw(g, world_mask, world, width);
+		super.draw(g, world_mask, game, width);
 		this.img = null;
 	}
 

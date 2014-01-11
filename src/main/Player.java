@@ -43,22 +43,14 @@ public class Player extends GameObject {
 
 		super.createRect(world, rotation);
 
-			if(armAngle>180){
-				armAngle = 179;
-				armAngle *= -1;
-			}
-			if(armAngle<0){
-				armAngle = 1;
-				armAngle *= -1;
-			}
-			if(legAngle>180){
-				legAngle = 179;
-				legAngle *= -1;
-			}
-			if(legAngle<0){
-				legAngle = 1;
-				legAngle *= -1;
-			}
+			if(armAngle>180)
+				armSpeed = -1;
+			if(armAngle<0)
+				armSpeed = 1;
+			if(legAngle>180)
+				legSpeed = -1;
+			if(legAngle<0)
+				legSpeed = 1;
 		if (input.isKeyDown(Input.KEY_LEFT)) {
 			angle-=20*delta/world.radius;
 			armAngle += armSpeed * delta / 3;
@@ -102,7 +94,7 @@ public class Player extends GameObject {
 	}
 
 	@Override
-	public void draw(Graphics g, Image world_mask, Circle world, int width) {
+	public void draw(Graphics g, Image world_mask, GamePlayState game, int width) {
 		body.setCenterOfRotation(body.getWidth() / 2, 0);
 		body.setRotation(world_mask.getRotation() + angle);
 
@@ -111,9 +103,9 @@ public class Player extends GameObject {
 		leg.setCenterOfRotation(leg.getWidth() / 2, 5);
 		leg.rotate((float) (Math.sin(Math.toRadians(legAngle - 90)) * 25));
 		leg.draw(
-				(float) (world.getCenterX() - leg.getWidth() / 2 + (world.radius)
+				(float) (game.world.getCenterX() - leg.getWidth() / 2 + (game.world.radius)
 						* Math.sin(Math.toRadians(body.getRotation()))),
-				(float) (world.getCenterY() - leg.getHeight() - (world.radius)
+				(float) (game.world.getCenterY() - leg.getHeight() - (game.world.radius)
 						* Math.cos(Math.toRadians(body.getRotation()))));
 
 		arm.setCenterOfRotation(arm.getWidth() / 2, 0);
@@ -121,18 +113,18 @@ public class Player extends GameObject {
 		arm.setCenterOfRotation(arm.getWidth() / 2, 5);
 		arm.rotate((float) (Math.sin(Math.toRadians(armAngle - 90)) * 30));
 		arm.draw(
-				(float) (world.getCenterX() - arm.getWidth() / 2 + (world.radius
+				(float) (game.world.getCenterX() - arm.getWidth() / 2 + (game.world.radius
 						+ leg.getHeight() - 50)
 						* Math.sin(Math.toRadians(body.getRotation()))),
-				(float) (world.getCenterY() - arm.getHeight() - (world.radius
+				(float) (game.world.getCenterY() - arm.getHeight() - (game.world.radius
 						+ leg.getHeight() - 50)
 						* Math.cos(Math.toRadians(body.getRotation()))));
 
 		body.draw(
-				(float) (world.getCenterX() - body.getWidth() / 2 + (world.radius
+				(float) (game.world.getCenterX() - body.getWidth() / 2 + (game.world.radius
 						+ leg.getHeight() - 10)
 						* Math.sin(Math.toRadians(body.getRotation()))),
-				(float) (world.getCenterY() - body.getHeight() - (world.radius
+				(float) (game.world.getCenterY() - body.getHeight() - (game.world.radius
 						+ leg.getHeight() - 10)
 						* Math.cos(Math.toRadians(body.getRotation()))));
 
@@ -141,23 +133,23 @@ public class Player extends GameObject {
 		leg.setCenterOfRotation(leg.getWidth() / 2, 5);
 		leg.rotate((float) (Math.cos(Math.toRadians(legAngle)) * 25));
 		leg.draw(
-				(float) (world.getCenterX() - leg.getWidth() / 2 + (world.radius)
+				(float) (game.world.getCenterX() - leg.getWidth() / 2 + (game.world.radius)
 						* Math.sin(Math.toRadians(body.getRotation()))),
-				(float) (world.getCenterY() - leg.getHeight() - (world.radius)
+				(float) (game.world.getCenterY() - leg.getHeight() - (game.world.radius)
 						* Math.cos(Math.toRadians(body.getRotation()))));
 
 		if (melee != null) {
-			melee.draw(g, armAngle, world);
+			melee.draw(g, armAngle, game.world);
 
 			arm.setCenterOfRotation(arm.getWidth() / 2, 0);
 			arm.setRotation(world_mask.getRotation() + angle);
 			arm.setCenterOfRotation(arm.getWidth() / 2, 5);
 			arm.rotate(melee.angle);
 			arm.draw(
-					(float) (world.getCenterX() - arm.getWidth() / 2 + (world.radius
+					(float) (game.world.getCenterX() - arm.getWidth() / 2 + (game.world.radius
 							+ leg.getHeight() - 50)
 							* Math.sin(Math.toRadians(body.getRotation()))),
-					(float) (world.getCenterY() - arm.getHeight() - (world.radius
+					(float) (game.world.getCenterY() - arm.getHeight() - (game.world.radius
 							+ leg.getHeight() - 50)
 							* Math.cos(Math.toRadians(body.getRotation()))));
 		} else {
@@ -166,10 +158,10 @@ public class Player extends GameObject {
 			arm.setCenterOfRotation(arm.getWidth() / 2, 5);
 			arm.rotate((float) (Math.cos(Math.toRadians(armAngle)) * 25)-armAdd*(direction*2-1));
 			arm.draw(
-					(float) (world.getCenterX() - arm.getWidth() / 2 + (world.radius
+					(float) (game.world.getCenterX() - arm.getWidth() / 2 + (game.world.radius
 							+ leg.getHeight() - 50)
 							* Math.sin(Math.toRadians(body.getRotation()))),
-					(float) (world.getCenterY() - arm.getHeight() - (world.radius
+					(float) (game.world.getCenterY() - arm.getHeight() - (game.world.radius
 							+ leg.getHeight() - 50)
 							* Math.cos(Math.toRadians(body.getRotation()))));
 		}

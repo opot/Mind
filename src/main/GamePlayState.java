@@ -124,28 +124,28 @@ public class GamePlayState extends BasicGameState {
 			time.render(g, gc);
 
 			for (int i = 0; i <= objects.size() - 1; i++)
-				objects.get(i).draw(g, world_mask, world, gc.getWidth());
+				objects.get(i).draw(g, world_mask, this, gc.getWidth());
 			world_mask.draw(world.getX(), world.getY(), world.radius * 2,
 					world.radius * 2);
 
 			if (items.size() != 0)
 				for (int i = 0; i <= items.size() - 1; i++)
-					items.get(i).draw(g, world_mask, world, gc.getWidth());
+					items.get(i).draw(g, world_mask, this, gc.getWidth());
 			if (mobs.size() != 0)
 				for (int i = 0; i <= mobs.size() - 1; i++)
-					mobs.get(i).draw(g, world_mask, world, gc.getWidth());
-			player.draw(g, world_mask, world, gc.getWidth());
+					mobs.get(i).draw(g, world_mask, this, gc.getWidth());
+			player.draw(g, world_mask, this, gc.getWidth());
 			if (playerAmmos.size() != 0)
 				for (int i = 0; i <= playerAmmos.size() - 1; i++)
 					playerAmmos.get(i)
-							.draw(g, world_mask, world, gc.getWidth());
+							.draw(g, world_mask, this, gc.getWidth());
 			if (mobAmmos.size() != 0)
 				for (int i = 0; i <= mobAmmos.size() - 1; i++)
-					mobAmmos.get(i).draw(g, world_mask, world, gc.getWidth());
+					mobAmmos.get(i).draw(g, world_mask, this, gc.getWidth());
 		}
 		if (areas.size() != 0)
 			for (int i = 0; i <= areas.size() - 1; i++)
-				areas.get(i).draw(g, world_mask, world, gc.getWidth());
+				areas.get(i).draw(g, world_mask, this, gc.getWidth());
 		gui.draw(g);
 		g.drawString("Time :"+ (String.valueOf(time.CurrentTime) + "  ").substring(
 								0, 5), 20, 45);
