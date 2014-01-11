@@ -21,7 +21,8 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GamePlayState extends BasicGameState {
 
 	private int StateID = -1;
-
+	Main game;
+	
 	Thread spawner;
 	MobSpawner spwn;
 	public Vector<Thing> objects;
@@ -112,6 +113,7 @@ public class GamePlayState extends BasicGameState {
 			throws SlickException {
 		time = new TimeMask(((Main) game).container);
 		world_mask = new Image("res/world.png");
+		this.game = (Main) game;
 	}
 
 	@Override
@@ -153,6 +155,44 @@ public class GamePlayState extends BasicGameState {
 			Functions.drawDebug(g, this);
 	}
 
+	@Override
+	public void controllerButtonPressed(int controller, int button) {
+		if (button == 9) {
+			try {
+				save((Main) game);
+			} catch (SlickException e) {e.printStackTrace();}
+			spwn.isAlive = false;
+			game.enterState(Main.MAINMENUSTATE);
+		}	
+		if (button == 8)
+			isMap = !isMap;
+		if(button == 2 && player.inventory[player.current] != null) {
+			try {
+				player.inventory[player.current].use(((Main) game).container, this);
+			} catch (SlickException e) {e.printStackTrace();}
+			if (player.inventory[player.current].Stack == 0)
+				player.inventory[player.current] = null;
+		}
+		if (button == 10) {
+			spwn.isAlive = false;
+			spwn.isSpawning = false;
+			try {
+				save((Main) game);
+			} catch (SlickException e) {e.printStackTrace();}
+			game.enterState(Main.CRAFTMENUSTATE);
+		}
+		if(button == 5){
+			player.current-=1;
+			if(player.current==-1)
+				player.current = 6;
+		}
+		if(button == 6){
+			player.current+=1;
+			if(player.current==7)
+				player.current = 0;
+		}
+	}
+	
 	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
@@ -232,7 +272,7 @@ public class GamePlayState extends BasicGameState {
 
 		world_mask.setRotation(worldAngle);
 
-		if (input.isKeyPressed(Input.KEY_SPACE)
+		if ((input.isKeyPressed(Input.KEY_SPACE)||input.isMousePressed(Input.MOUSE_LEFT_BUTTON))
 				&& player.inventory[player.current] != null) {
 			player.inventory[player.current].use(((Main) game).container, this);
 			if (player.inventory[player.current].Stack == 0)
@@ -391,5 +431,14 @@ public class GamePlayState extends BasicGameState {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void mouseWheelMoved(int change){
+		player.current+=change/120;
+		if(player.current==7)
+			player.current = 0;
+		if(player.current==-1)
+			player.current = 6;
 	}
 }

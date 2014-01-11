@@ -27,7 +27,8 @@ public class MainMenuState extends BasicGameState {
 	AngelCodeFont font;
 	Circle world;
 	TimeMask time;
-
+	Main game;
+	
 	public MainMenuState(int StateID) {
 		this.StateID = StateID;
 	}
@@ -50,11 +51,12 @@ public class MainMenuState extends BasicGameState {
 		for (int i = 1; i <= menu[1].length; i++)
 			buf[i] = menu[1][i - 1];
 		menu[1] = buf;
-		menu[2] = new String[4];
+		menu[2] = new String[5];
 		menu[2][0] = "Difficulty";
 		menu[2][1] = "Fullscreen";
 		menu[2][2] = "Sounds";
 		menu[2][3] = "Resolution";
+		menu[2][4] = "Controller Setup";
 		menu[3] = new String[6];
 		menu[3][0] = "600x800";
 		menu[3][1] = "1280x800";
@@ -81,6 +83,7 @@ public class MainMenuState extends BasicGameState {
 		font = new AngelCodeFont("res/font.fnt", new Image("res/font.png"));
 		time = new TimeMask(((Main) game).container);
 		time.time_speed = time.time_speed / 20;
+		this.game = (Main) game;
 	}
 
 	@Override
@@ -111,15 +114,37 @@ public class MainMenuState extends BasicGameState {
 	}
 
 	@Override
+	public void controllerButtonPressed(int controller, int button) {
+		if(button == 9){
+			if(Step == 1||Step == 2)
+				Step = 0;
+			if(Step == 3)
+				Step = 2;
+		}
+		if(button == 2)
+			try {
+				check_enter(game);
+			} catch (SlickException e) {e.printStackTrace();}
+	}
+
+	@Override
+	public void controllerLeftPressed(int controller)  {
+		CurPos--;
+	}
+	@Override
+	public void controllerRightPressed(int controller)  {
+		CurPos++;
+	}
+	
+	@Override
 	public void update(GameContainer gc, StateBasedGame game, int delta)
 			throws SlickException {
 		Input input = gc.getInput();
 
 		time.update(delta);
-
-		if (input.isKeyPressed(Input.KEY_RIGHT))
+		if (input.isKeyPressed(Input.KEY_RIGHT)||input.isKeyPressed(Input.KEY_D))
 			CurPos++;
-		if (input.isKeyPressed(Input.KEY_LEFT))
+		if (input.isKeyPressed(Input.KEY_LEFT)||input.isKeyPressed(Input.KEY_A))
 			CurPos--;
 
 		if (input.isKeyPressed(Input.KEY_ENTER))
@@ -197,6 +222,8 @@ public class MainMenuState extends BasicGameState {
 						.setMusicOn(!game.getContainer().isMusicOn());
 			if(CurPos == 3)
 				Step++;
+			if(CurPos == 4)
+				game.enterState(Main.CONTROLLERSETUPSTATE);
 			return;
 		}
 		if(Step == 3){

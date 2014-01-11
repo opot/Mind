@@ -51,7 +51,7 @@ public class Player extends GameObject {
 				legSpeed = -1;
 			if(legAngle<0)
 				legSpeed = 1;
-		if (input.isKeyDown(Input.KEY_LEFT)) {
+		if (input.isKeyDown(Input.KEY_LEFT)||input.isKeyDown(Input.KEY_A)||input.isControllerLeft(Input.ANY_CONTROLLER)) {
 			angle-=20*delta/world.radius;
 			armAngle += armSpeed * delta / 3;
 			legAngle += legSpeed * delta / 1.75;
@@ -61,7 +61,7 @@ public class Player extends GameObject {
 				arm = lArm;
 				direction = 0;
 			}
-		} else if (input.isKeyDown(Input.KEY_RIGHT)) {
+		} else if (input.isKeyDown(Input.KEY_RIGHT)||input.isKeyDown(Input.KEY_D)||input.isControllerRight(Input.ANY_CONTROLLER)) {
 			angle+=20*delta/world.radius;
 			armAngle += armSpeed * delta / 3;
 			legAngle += legSpeed * delta / 1.75;

@@ -12,6 +12,7 @@ public class Main extends StateBasedGame {
 	public static final int ENDOFGAMESTATE = 3;
 	public static final int TITLESTATE = 4;
 	public static final int CRAFTMENUSTATE = 5;
+	public static final int CONTROLLERSETUPSTATE = 6;
 
 	public BufferedWorld buf;
 	public ImageContainer container;
@@ -24,6 +25,7 @@ public class Main extends StateBasedGame {
 		this.addState(new EndOfGameState(ENDOFGAMESTATE));
 		this.addState(new TitlesState(TITLESTATE));
 		this.addState(new CraftMenuState(CRAFTMENUSTATE));
+		this.addState(new ControllerSetupState(CONTROLLERSETUPSTATE));
 		this.enterState(MAINMENUSTATE);
 	}
 
