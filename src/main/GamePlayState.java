@@ -282,7 +282,7 @@ public class GamePlayState extends BasicGameState {
 		world.setX(gc.getWidth() / 2 - world.radius);
 		world.setY(gc.getHeight() / 2);
 		world_mask.setCenterOfRotation(world.radius, world.radius);
-		player.update(delta, world, gc.getInput(), world_mask.getRotation());
+		player.update(delta, this, gc.getInput(), world_mask.getRotation());
 		for (int i = 0; i <= mobs.size() - 1; i++) {
 			mobs.get(i).update(delta, world_mask.getRotation(), world.radius,
 					world, sum);

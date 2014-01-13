@@ -21,8 +21,11 @@ public class Wall extends Item {
 			throws SlickException {
 		for (int i = 0; i < game.objects.size(); i++) 
 			if(game.objects.get(i).rect.intersects(game.player.rect)&&(game.objects.get(i) instanceof Nothing)){
+				float angle = game.objects.get(i).angle;
 				game.objects.set(i, Functions.createThingById(container, 5));
-				Stack--;
+				game.objects.get(i).angle = angle;
+				//Stack--;
+				return;
 			}
 				
 	}

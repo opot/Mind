@@ -4,7 +4,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Circle;
 
 public class Player extends GameObject {
 
@@ -35,24 +34,26 @@ public class Player extends GameObject {
 		body = lBody;
 		leg = lLeg;
 		arm = lArm;
-		this.width = 20;
+		this.width = 80;
 		this.height = 200;
 	}
 
-	public void update(float delta, Circle world, Input input, float rotation) {
+	public void update(float delta, GamePlayState game, Input input, float rotation) {
 
-		super.createRect(world, rotation);
+		super.createRect(game.world, rotation);
 
-			if(armAngle>180)
-				armSpeed = -1;
-			if(armAngle<0)
-				armSpeed = 1;
-			if(legAngle>180)
-				legSpeed = -1;
-			if(legAngle<0)
-				legSpeed = 1;
-		if (input.isKeyDown(Input.KEY_LEFT)||input.isKeyDown(Input.KEY_A)||input.isControllerLeft(Input.ANY_CONTROLLER)) {
-			angle-=20*delta/world.radius;
+		if (armAngle > 180)
+			armSpeed = -1;
+		if (armAngle < 0)
+			armSpeed = 1;
+		if (legAngle > 180)
+			legSpeed = -1;
+		if (legAngle < 0)
+			legSpeed = 1;
+		if (input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_A)
+				|| input.isControllerLeft(Input.ANY_CONTROLLER)) {
+			angle -= 20 * delta / game.world.radius;
+			
 			armAngle += armSpeed * delta / 3;
 			legAngle += legSpeed * delta / 1.75;
 			if (melee == null) {
@@ -61,8 +62,11 @@ public class Player extends GameObject {
 				arm = lArm;
 				direction = 0;
 			}
-		} else if (input.isKeyDown(Input.KEY_RIGHT)||input.isKeyDown(Input.KEY_D)||input.isControllerRight(Input.ANY_CONTROLLER)) {
-			angle+=20*delta/world.radius;
+		} else if (input.isKeyDown(Input.KEY_RIGHT)
+				|| input.isKeyDown(Input.KEY_D)
+				|| input.isControllerRight(Input.ANY_CONTROLLER)) {
+			angle += 20 * delta / game.world.radius;
+			
 			armAngle += armSpeed * delta / 3;
 			legAngle += legSpeed * delta / 1.75;
 			if (melee == null) {
@@ -84,10 +88,21 @@ public class Player extends GameObject {
 			angle += 360;
 		if (angle < 0)
 			angle += 360;
+
+		for(Thing a:game.objects)
+			if((a instanceof main.things.Wall))
+				if(a.rect.intersects(this.rect)){
+					if(a.rect.getCenterX()<this.rect.getCenterX())
+						angle += 20 * delta / game.world.radius;
+					else
+						angle -= 20 * delta / game.world.radius;
+					System.out.println(a.rect.getCenterX());
+					break;
+				}
 		
-		if(armAdd>0)
+		if (armAdd > 0)
 			armAdd -= delta / 3;
-		
+
 		if (melee != null)
 			if (melee.update(delta))
 				melee = null;
@@ -156,7 +171,8 @@ public class Player extends GameObject {
 			arm.setCenterOfRotation(arm.getWidth() / 2, 0);
 			arm.setRotation(world_mask.getRotation() + angle);
 			arm.setCenterOfRotation(arm.getWidth() / 2, 5);
-			arm.rotate((float) (Math.cos(Math.toRadians(armAngle)) * 25)-armAdd*(direction*2-1));
+			arm.rotate((float) (Math.cos(Math.toRadians(armAngle)) * 25)
+					- armAdd * (direction * 2 - 1));
 			arm.draw(
 					(float) (game.world.getCenterX() - arm.getWidth() / 2 + (game.world.radius
 							+ leg.getHeight() - 50)
@@ -165,5 +181,8 @@ public class Player extends GameObject {
 							+ leg.getHeight() - 50)
 							* Math.cos(Math.toRadians(body.getRotation()))));
 		}
+		if(game.debug)
+			g.fill(this.rect);
 	}
+	
 }

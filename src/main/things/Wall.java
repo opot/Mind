@@ -16,6 +16,7 @@ public class Wall extends Thing {
 		id = 5;
 		hp = 200;
 		img = container.getImage("things/stoneWall");
+		this.width = img.getWidth();
 	}
 
 	@Override

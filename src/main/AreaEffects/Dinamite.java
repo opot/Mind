@@ -24,6 +24,8 @@ public class Dinamite extends AreaEffect {
 				container.getImage("/area/burst"), angle);
 		this.anim.setPreferedDelta(50);
 		dinam = container.getImage("items/TNT");
+		this.width = 100;
+		this.height = 100;
 	}
 
 	@Override
