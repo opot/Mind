@@ -14,13 +14,13 @@ Arrows to move your character(or chhow corrrect option in menu)
 "M" to open map
 "F3" to see debug info
 
-Craft recipes
--2*wood = boomerang
--2*wood+stone = axe
--rainbow egg = rainbow dust
--blackhole stone = blackhole dust
--blackhole dust + rainbow duat = dynamite
--4*stone = stone wall
+Craft recipes: 
+2*wood = boomerang; 
+2*wood+stone = axe; 
+rainbow egg = rainbow dust
+blackhole stone = blackhole dust; 
+blackhole dust + rainbow duat = dynamite; 
+4*stone = stone wall;
 (to craft use stone button under craft fileld(on left side))
 
 Sorry for my English.
