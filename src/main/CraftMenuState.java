@@ -156,12 +156,12 @@ public class CraftMenuState extends BasicGameState {
 					}
 			} else {
 				if (inHand != null) {
-					inHand.rect = new Polygon();
-					inHand.rect.addPoint(x - 20, y - 20);
-					inHand.rect.addPoint(x + 20, y - 20);
-					inHand.rect.addPoint(x + 20, y + 20);
-					inHand.rect.addPoint(x - 20, y + 20);
-					if (craft.contains(inHand.rect)) {
+					mouse = new Polygon();
+					mouse.addPoint(x, y);
+					mouse.addPoint(x + 1, y);
+					mouse.addPoint(x + 1, y + 1);
+					mouse.addPoint(x, y + 1);
+					if (craft.contains(mouse)) {
 						workbench.add(inHand);
 						inHand = null;
 
@@ -169,10 +169,7 @@ public class CraftMenuState extends BasicGameState {
 						for (int i = 0; i <= 4; i++)
 							for (int j = 0; j <= 4; j++)
 								if (player[j][i] != null)
-									if (inHand.rect
-											.intersects(player[j][i].rect)
-											|| inHand.rect
-													.contains(player[j][i].rect)) {
+									if (player[j][i].rect.contains(mouse)) {
 										if (inHand.id == player[j][i].id) {
 											player[j][i].Stack+=inHand.Stack;
 											inHand = null;
