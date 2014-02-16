@@ -67,9 +67,11 @@ public class Dinamite extends AreaEffect {
 				if (game.objects.get(i).rect.intersects(rect)) {
 					game.objects.get(i).hp -= damage;
 					if (game.objects.get(i).hp < 1) {
+						float angle = game.objects.get(i).angle;
 						game.objects.get(i).drop(game.items,
 								((Main) main).container);
 						game.objects.set(i, Functions.createThingById(((Main)main).container,-1));
+						game.objects.get(i).angle = angle;
 					}
 				}
 			}

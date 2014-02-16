@@ -11,9 +11,9 @@ public class GUI {
 	Image curItem;
 	
 	public GUI(Player player, ImageContainer container){
-		hpBar = container.getImage("hp");
-		gui = container.getImage("gui");
-		curItem = container.getImage("curItem");
+		hpBar = container.getImage("gui/hp");
+		gui = container.getImage("GUI/gui");
+		curItem = container.getImage("gui/curItem");
 		this.player = player;
 	}
 	

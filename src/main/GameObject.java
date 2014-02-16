@@ -28,31 +28,37 @@ public abstract class GameObject {
 	
 	public void draw(Graphics g, Image world_mask, GamePlayState game, int width) {
 		if (img != null) {
-			img.setCenterOfRotation(img.getWidth()/2, img.getHeight());
+			img.setCenterOfRotation(img.getWidth()/2, img.getHeight()/2);
 			img.setRotation(game.world_mask.getRotation() + angle);
-			float x = (float) (game.world.getCenterX() - img.getWidth()/2 + (game.world.radius - 5)
+			float x = (float) (game.world.getCenterX() - img.getWidth()/2 + (game.world.radius+img.getHeight()/2-5)
 					* Math.sin(Math.toRadians(img.getRotation())));
 			if (x > -100 && x < width + 50)
 				img.draw(x,
-						(float) (game.world.getCenterY() - img.getHeight() - (game.world.radius - 5)
+						(float) (game.world.getCenterY() - img.getHeight()/2 - (game.world.radius+img.getHeight()/2-5)
 								* Math.cos(Math.toRadians(img.getRotation()))));
+			if(game.debug){
+				g.setColor(Color.white);
+				if(rect.intersects(game.player.rect))
+					g.setColor(Color.green);
+				g.fill(rect);
+			}
 		}else{
 			float angle = this.angle + game.world_mask.getRotation();
 			anim.setRotation(angle);
-			float x = (float) (game.world.getCenterX() - anim.getWidth() / 2 + (game.world.radius - 5 + rise)
+			float x = (float) (game.world.getCenterX() - anim.getWidth() / 2 + (anim.getHeigth()/2 + game.world.radius - 5 + rise)
 					* Math.sin(Math.toRadians(angle)));
 			if (x > -200 && x < width + 50) {
 				anim.setX(x);
-				anim.setY((float) (game.world.getCenterY() - anim.getHeigth() - (game.world.radius - 5 + rise)
+				anim.setY((float) (game.world.getCenterY() - anim.getHeigth()/2 - (anim.getHeigth()/2 + game.world.radius - 5 + rise)
 						* Math.cos(Math.toRadians(angle))));
 				anim.draw(g);
+				if(game.debug){
+					g.setColor(Color.white);
+					if(rect.intersects(game.player.rect))
+						g.setColor(Color.green);
+					g.fill(rect);
+				}
 			}
-		}
-		if(game.debug){
-			g.setColor(Color.white);
-			if(rect.intersects(game.player.rect))
-				g.setColor(Color.green);
-			g.fill(rect);
 		}
 	}
 

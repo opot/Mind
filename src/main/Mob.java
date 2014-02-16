@@ -17,7 +17,7 @@ public abstract class Mob extends GameObject {
 	public Mob(float angle, float worldAngle, ImageContainer container) {
 		this.angle = angle - worldAngle;
 		inventory = new Item[64];
-		hp_mask = container.getImage("hp");
+		hp_mask = container.getImage("gui/hp");
 		rect.addPoint(0, 0);
 	}
 	

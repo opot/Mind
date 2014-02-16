@@ -78,7 +78,7 @@ public class Sprite {
 	public void setRotation(float angle) {
 		for (int i = 0; i <= img.length - 1; i++) {
 			img[i].setCenterOfRotation(img[i].getWidth() / 2,
-					img[i].getHeight());
+					img[i].getHeight()/2);
 			img[i].setRotation(angle);
 		}
 	}

@@ -37,10 +37,10 @@ public class Player extends GameObject {
 		this.width = 80;
 		this.height = 200;
 	}
-
+	
 	public void update(float delta, GamePlayState game, Input input, float rotation) {
 
-		super.createRect(game.world, rotation);
+		createRect(game.world, rotation);
 
 		if (armAngle > 180)
 			armSpeed = -1;
@@ -184,5 +184,4 @@ public class Player extends GameObject {
 		if(game.debug)
 			g.fill(this.rect);
 	}
-	
 }

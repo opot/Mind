@@ -2,7 +2,6 @@ package main.ammos;
 
 import java.util.Vector;
 
-import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 
