@@ -218,6 +218,8 @@ public class GamePlayState extends BasicGameState {
 			game.enterState(Main.ENDOFGAMESTATE);
 		}
 
+		world.setRadius(world.getRadius() + delta / 20);
+
 		if (worldAngle > 360)
 			worldAngle -= 360;
 		if (worldAngle < -360)
@@ -313,21 +315,29 @@ public class GamePlayState extends BasicGameState {
 					world)) {
 				playerAmmos.get(i).drop(((Main) game).container, items);
 				playerAmmos.remove(i);
+				i--;
 			}
 			boolean sh = false;
-			for (int j = 0; j < mobs.size() && !sh; j++)
-				if (playerAmmos.get(i).rect.intersects(mobs.get(j).rect)) {
-					playerAmmos.get(i).drop(((Main) game).container, items);
-					mobs.get(j).hp -= playerAmmos.get(i).damage;
-					if (mobs.get(j).hp < 1) {
-						mobs.get(j).drop(items, ((Main) game).container);
-						mobs.remove(j);
-						Score += 1;
+			try {
+				for (int j = 0; j <= mobs.size() - 1 && !sh; j++)
+					if (playerAmmos.get(i).rect.intersects(mobs.get(j).rect)) {
+						playerAmmos.get(i).drop(((Main) game).container, items);
+						mobs.get(j).hp -= playerAmmos.get(i).damage;
+						if (mobs.get(j).hp < 1) {
+							mobs.get(j).drop(items, ((Main) game).container);
+							mobs.remove(j);
+							Score += 1;
+						}
+						playerAmmos.remove(i);
+						sh = !sh;
 					}
-					playerAmmos.remove(i);
-					sh = !sh;
-				}
-
+			} catch (ArrayIndexOutOfBoundsException e) {
+				System.out.println("-----bug------");
+				e.printStackTrace();
+				System.out.println(mobs.size());
+				System.out.println(playerAmmos.size());
+				System.out.println("-----bug------");
+			}
 		}
 		for (int i = 0; i <= mobAmmos.size() - 1; i++) {
 			if (mobAmmos.get(i).update(delta, world_mask.getRotation(), world)) {
