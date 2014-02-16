@@ -25,7 +25,7 @@ public class Mountain extends Thing {
 
 	@Override
 	public void drop(Vector<Item> items,ImageContainer container) {
-		items.add(Functions.createItem(9, 1, container, (int) this.angle));
+		items.add(Functions.createItem(9, 1, container, this.angle));
 	}
 
 }

@@ -48,7 +48,7 @@ public class Functions {
 	}
 
 	public static Item createItem(int id, int Stack, ImageContainer container,
-			final Integer angle) {
+			final float angle) {
 		Item item = null;
 		if (id == 1) 
 			item = new Drug(container.getImage("items/drug"), Stack);

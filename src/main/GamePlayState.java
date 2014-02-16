@@ -218,7 +218,7 @@ public class GamePlayState extends BasicGameState {
 			game.enterState(Main.ENDOFGAMESTATE);
 		}
 
-		world.setRadius(world.getRadius() + delta / 20);
+		world.setRadius(world.getRadius() + delta);
 
 		if (worldAngle > 360)
 			worldAngle -= 360;
@@ -295,6 +295,10 @@ public class GamePlayState extends BasicGameState {
 		world.setY(gc.getHeight() / 2);
 		world_mask.setCenterOfRotation(world.radius, world.radius);
 		player.update(delta, this, gc.getInput(), world_mask.getRotation());
+		
+		/**
+		 *START OF REFACTORING BLOCK 
+		 */
 		for (int i = 0; i <= mobs.size() - 1; i++) {
 			mobs.get(i).update(delta, world_mask.getRotation(), world.radius,
 					world, sum);
@@ -339,6 +343,11 @@ public class GamePlayState extends BasicGameState {
 				System.out.println("-----bug------");
 			}
 		}
+		/**
+		 * END OF REFACTORING BLOCK
+		 */
+		
+		
 		for (int i = 0; i <= mobAmmos.size() - 1; i++) {
 			if (mobAmmos.get(i).update(delta, world_mask.getRotation(), world)) {
 				mobAmmos.get(i).drop(((Main) game).container, items);
@@ -435,7 +444,7 @@ public class GamePlayState extends BasicGameState {
 			for (AbstractAmmo a : playerAmmos)
 				if (a instanceof main.ammos.boom)
 					items.add(Functions.createItem(2, 1, new ImageContainer(),
-							(int) a.angle));
+							a.angle));
 		BufferedWorld buf = new BufferedWorld(objects, mobs, player, name,
 				time.CurrentTime, world_mask.getRotation(), items, Score,
 				player.angle);
