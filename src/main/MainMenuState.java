@@ -202,8 +202,9 @@ public class MainMenuState extends BasicGameState {
 					objects.add(Functions.createRandomThing(((Main)game).container));
 				Player player = new Player(100, 100,
 						((Main) game).container);
-				player.inventory[0] = Functions.createItem(2, 5, ((Main) game).container, 0);//DELETE IT DONT FORGET
+				player.inventory[0] = Functions.createItem(2, 5, ((Main) game).container, 0);//DELETE IT DON'T FORGET
 				player.inventory[1] = Functions.createItem(4, 1, ((Main) game).container, 0);
+				player.inventory[2] = Functions.createItem(10, 1, ((Main)game).container, 0);
 				wrld = new BufferedWorld(objects,new Vector<Mob>(), player,
 						String.valueOf(menu[1].length - 1) + ".wrld", 12f, 0f,
 						new Vector<Item>(),0,0);

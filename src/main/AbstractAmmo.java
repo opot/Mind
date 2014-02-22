@@ -28,10 +28,10 @@ public abstract class AbstractAmmo extends GameObject{
 		rect.addPoint(0, 0);
 	}
 
-	public boolean update(final float delta,final  float worldAngle, final Circle world) {
-		super.createRect(world, worldAngle);
+	public boolean update(final float delta,GamePlayState game) {
+		super.createRect(game.world, game.world_mask.getRotation());
 		anim.update(delta);
-		angle = angle + AngularSpeed * delta / world.radius;
+		angle = angle + AngularSpeed * delta / game.world.radius;
 		rise-=delta*falling;
 		return rise<0;
 	}

@@ -3,11 +3,13 @@ package main.things;
 import java.util.Random;
 import java.util.Vector;
 
+import main.GamePlayState;
 import main.ImageContainer;
 import main.Item;
 import main.Functions;
 
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Oak extends Tree{
 
@@ -18,7 +20,7 @@ public class Oak extends Tree{
 	}
 
 	@Override
-	public void update(int delta) {
+	public void update(int delta, GamePlayState game, StateBasedGame gc) {
 		// TODO Auto-generated method stub
 		
 	}

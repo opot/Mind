@@ -8,6 +8,7 @@ import java.util.Vector;
 import main.Functions;
 import main.things.Nothing;
 import main.things.Tree;
+import main.things.Wall;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.geom.Circle;
@@ -298,7 +299,7 @@ public class GamePlayState extends BasicGameState {
 		Iterator<AbstractAmmo> ammoIt = playerAmmos.iterator();
 		while (ammoIt.hasNext()) {
 			AbstractAmmo a = ammoIt.next();
-			if (a.update(delta, world_mask.getRotation(), world)) {
+			if (a.update(delta, this)) {
 				a.drop(((Main) game).container, items);
 				ammoIt.remove();
 			}
@@ -338,7 +339,7 @@ public class GamePlayState extends BasicGameState {
 		}
 
 		for (int i = 0; i <= mobAmmos.size() - 1; i++) {
-			if (mobAmmos.get(i).update(delta, world_mask.getRotation(), world)) {
+			if (mobAmmos.get(i).update(delta, this)) {
 				mobAmmos.get(i).drop(((Main) game).container, items);
 				mobAmmos.remove(i);
 				continue;
@@ -375,6 +376,8 @@ public class GamePlayState extends BasicGameState {
 		}
 		for (int i = 0; i < objects.size(); i++) {
 			objects.get(i).createRect(world, world_mask.getRotation());
+			if(objects.get(i) instanceof Wall)
+				objects.get(i).update(delta, this, game);
 			if (player.melee != null)
 				if (player.melee.active)
 					if (objects.get(i).rect.intersects(player.melee.rect)

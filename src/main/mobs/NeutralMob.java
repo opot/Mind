@@ -38,19 +38,23 @@ public abstract class NeutralMob extends Mob {
 				if ((int) (angle / 10) != (int) (FinalAngle / 10))
 					angle = angle + direction * 15 * delta / radius;
 				else {
-					float buf = FinalAngle;
-					FinalAngle = StartingAngle;
-					StartingAngle = buf;
-					direction *= -1;
-					if (anim.getAnimStart() == 0) {
-						anim.setAnimStart(anim.getAnimCount() / 2);
-						anim.setAnimStop(anim.getAnimCount() - 1);
-					} else {
-						anim.setAnimStart(0);
-						anim.setAnimStop(anim.getAnimCount() / 2 - 1);
-					}
+					revert();
 				}
 		}
 	}
 
+	public void revert(){
+		float buf = FinalAngle;
+		FinalAngle = StartingAngle;
+		StartingAngle = buf;
+		direction *= -1;
+		if (anim.getAnimStart() == 0) {
+			anim.setAnimStart(anim.getAnimCount() / 2);
+			anim.setAnimStop(anim.getAnimCount() - 1);
+		} else {
+			anim.setAnimStart(0);
+			anim.setAnimStop(anim.getAnimCount() / 2 - 1);
+		}
+	}
+	
 }

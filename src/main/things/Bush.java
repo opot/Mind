@@ -4,7 +4,9 @@ import java.util.Random;
 import java.util.Vector;
 
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
+import main.GamePlayState;
 import main.ImageContainer;
 import main.Item;
 import main.Thing;
@@ -23,7 +25,7 @@ public class Bush extends Thing {
 	}
 
 	@Override
-	public void update(int delta) {
+	public void update(int delta, GamePlayState game, StateBasedGame gc) {
 		// TODO Auto-generated method stub
 		
 	}
