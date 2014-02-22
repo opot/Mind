@@ -2,6 +2,7 @@ package main;
 
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
+import java.util.Iterator;
 import java.util.Vector;
 
 import main.Functions;
@@ -218,8 +219,6 @@ public class GamePlayState extends BasicGameState {
 			game.enterState(Main.ENDOFGAMESTATE);
 		}
 
-		world.setRadius(world.getRadius() + delta);
-
 		if (worldAngle > 360)
 			worldAngle -= 360;
 		if (worldAngle < -360)
@@ -295,59 +294,49 @@ public class GamePlayState extends BasicGameState {
 		world.setY(gc.getHeight() / 2);
 		world_mask.setCenterOfRotation(world.radius, world.radius);
 		player.update(delta, this, gc.getInput(), world_mask.getRotation());
-		
-		/**
-		 *START OF REFACTORING BLOCK 
-		 */
-		for (int i = 0; i <= mobs.size() - 1; i++) {
-			mobs.get(i).update(delta, world_mask.getRotation(), world.radius,
-					world, sum);
+
+		Iterator<AbstractAmmo> ammoIt = playerAmmos.iterator();
+		while (ammoIt.hasNext()) {
+			AbstractAmmo a = ammoIt.next();
+			if (a.update(delta, world_mask.getRotation(), world)) {
+				a.drop(((Main) game).container, items);
+				ammoIt.remove();
+			}
+		}
+
+		Iterator<Mob> it = mobs.iterator();
+		while (it.hasNext()) {
+			Mob a = it.next();
+			a.update(delta, world_mask.getRotation(), world.radius, world, sum);
 			if (player.melee != null)
 				if (player.melee.active)
-					if (mobs.get(i).rect.intersects(player.melee.rect)) {
-						mobs.get(i).hp -= player.melee.damage;
+					if (a.rect.intersects(player.melee.rect)) {
+						a.hp -= player.melee.damage;
 						player.melee.active = false;
-						if (mobs.get(i).hp < 1) {
-							mobs.get(i).drop(items, ((Main) game).container);
-							mobs.remove(i);
+						if (a.hp < 1) {
+							a.drop(items, ((Main) game).container);
+							it.remove();
 							Score += 1;
 						}
 					}
-		}
-		for (int i = 0; i <= playerAmmos.size() - 1; i++) {
-			if (playerAmmos.get(i).update(delta, world_mask.getRotation(),
-					world)) {
-				playerAmmos.get(i).drop(((Main) game).container, items);
-				playerAmmos.remove(i);
-				i--;
-			}
-			boolean sh = false;
-			try {
-				for (int j = 0; j <= mobs.size() - 1 && !sh; j++)
-					if (playerAmmos.get(i).rect.intersects(mobs.get(j).rect)) {
-						playerAmmos.get(i).drop(((Main) game).container, items);
-						mobs.get(j).hp -= playerAmmos.get(i).damage;
-						if (mobs.get(j).hp < 1) {
-							mobs.get(j).drop(items, ((Main) game).container);
-							mobs.remove(j);
-							Score += 1;
-						}
-						playerAmmos.remove(i);
-						sh = !sh;
+			ammoIt = playerAmmos.iterator();
+			while (ammoIt.hasNext()) {
+				AbstractAmmo b = ammoIt.next();
+				boolean sh = false;
+				if (b.rect.intersects(a.rect)) {
+					b.drop(((Main) game).container, items);
+					a.hp -= b.damage;
+					if (a.hp < 1) {
+						a.drop(items, ((Main) game).container);
+						it.remove();
+						Score += 1;
 					}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				System.out.println("-----bug------");
-				e.printStackTrace();
-				System.out.println(mobs.size());
-				System.out.println(playerAmmos.size());
-				System.out.println("-----bug------");
+					ammoIt.remove();
+					sh = !sh;
+				}
 			}
 		}
-		/**
-		 * END OF REFACTORING BLOCK
-		 */
-		
-		
+
 		for (int i = 0; i <= mobAmmos.size() - 1; i++) {
 			if (mobAmmos.get(i).update(delta, world_mask.getRotation(), world)) {
 				mobAmmos.get(i).drop(((Main) game).container, items);
