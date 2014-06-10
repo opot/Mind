@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:projects="http://www.soyatec.com/projects" xmi:id="_ZItT4O_3EeOiOYb2YKr6-g" type="Projects" measurementUnit="Pixel">
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ZItT4e_3EeOiOYb2YKr6-g" source="Diagram_Wire_Options">
+    <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ZItT4u_3EeOiOYb2YKr6-g" key="Diagram_Wire_Options" value="15"/>
+  </eAnnotations>
+  <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_ZItT4-_3EeOiOYb2YKr6-g" source="Show_Weight_Number">
+    <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_ZItT5O_3EeOiOYb2YKr6-g" key="Show_Weight_Number" value="0"/>
+  </eAnnotations>
+  <children xmi:type="notation:Node" xmi:id="_ZItT5e_3EeOiOYb2YKr6-g" type="1001">
+    <children xmi:type="notation:Node" xmi:id="_ZItT5u_3EeOiOYb2YKr6-g" type="4001"/>
+    <children xmi:type="notation:Node" xmi:id="_ZItT5-_3EeOiOYb2YKr6-g" type="4002"/>
+    <children xmi:type="notation:Node" xmi:id="_ZItT6O_3EeOiOYb2YKr6-g" type="5001">
+      <styles xmi:type="notation:DrawerStyle" xmi:id="_ZItT6e_3EeOiOYb2YKr6-g"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_ZItT6u_3EeOiOYb2YKr6-g"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_ZItT6-_3EeOiOYb2YKr6-g"/>
+    </children>
+    <children xmi:type="notation:Node" xmi:id="_ZItT7O_3EeOiOYb2YKr6-g" type="4001"/>
+    <styles xmi:type="notation:DescriptionStyle" xmi:id="_ZItT7e_3EeOiOYb2YKr6-g"/>
+    <styles xmi:type="notation:FillStyle" xmi:id="_ZItT7u_3EeOiOYb2YKr6-g"/>
+    <styles xmi:type="notation:LineStyle" xmi:id="_ZItT7-_3EeOiOYb2YKr6-g"/>
+    <element xmi:type="projects:Project" href="plugins#/WorldAdventure-core"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_ZItT8O_3EeOiOYb2YKr6-g" x="30" y="30"/>
+  </children>
+  <styles xmi:type="notation:PageStyle" xmi:id="_ZItT8e_3EeOiOYb2YKr6-g"/>
+  <styles xmi:type="notation:GuideStyle" xmi:id="_ZItT8u_3EeOiOYb2YKr6-g"/>
+  <styles xmi:type="notation:DescriptionStyle" xmi:id="_ZItT8-_3EeOiOYb2YKr6-g"/>
+  <element xmi:type="projects:Diagram" href="plugins#/"/>
+</notation:Diagram>
