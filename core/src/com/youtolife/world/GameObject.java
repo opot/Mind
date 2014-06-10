@@ -8,27 +8,13 @@ import com.youtolife.world.states.GamePlayState;
 
 public abstract class GameObject {
 
-	/**
-	 */
 	public AnimatedSprite anim = null;
-	/**
-	 */
 	public float angle = 0;
-	/**
-	 */
 	public float rise = 0;
-	/**
-	 */
 	public float width = 0;
-	/**
-	 */
 	public float height = 0;
-
-	/**
-	 */
+	
 	float[] vert = { 0, 0, 1, 1, 2, 2 };
-	/**
-	 */
 	public Polygon rect = new Polygon(vert);
 
 	public void draw(SpriteBatch batch, float x, float y) {

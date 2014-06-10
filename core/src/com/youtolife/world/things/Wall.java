@@ -61,7 +61,7 @@ public class Wall extends Thing {
 					a.revert();
 				}
 		}
-		this.createRect(game.world, game.world_mask.getOriginY());
+		this.createRect(game.world, game.world_mask.getRotation());
 	}
 
 }

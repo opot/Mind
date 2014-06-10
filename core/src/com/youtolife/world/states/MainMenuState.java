@@ -26,39 +26,17 @@ import com.youtolife.world.TimeMask;
 
 public class MainMenuState extends GameState {
 
-	/**
-	 */
 	Sprite world_mask;
-	/**
-	 */
 	Sprite back;
-	/**
-	 */
 	String[][] menu = new String[4][1];
-	/**
-	 */
 	Thing[][] objects;
-	/**
-	 */
 	int Step = 0;
-	/**
-	 */
 	int CurPos = 0;
-	/**
-	 */
 	BitmapFont font;
-	/**
-	 */
 	Circle world;
-	/**
-	 */
 	TimeMask time;
-	/**
-	 */
 	MainGame game;
 
-	/**
-	 */
 	float switch_time = 0.2f;
 
 	public MainMenuState(int id, MainGame game) {
@@ -160,19 +138,8 @@ public class MainMenuState extends GameState {
 			back.draw(batch);
 	}
 
-	/**
-	 * @author           Grigory
-	 */
 	public enum touchAction {
-		/**
-		 */
-		Left, /**
-		 */
-		Right, /**
-		 */
-		Enter, /**
-		 */
-		Back
+		Left, Right, Enter, Back
 	}
 
 	public void touchAction(touchAction a, StateBasedGame game) {
@@ -289,7 +256,7 @@ public class MainMenuState extends GameState {
 						((MainGame) game).container, 0);
 				player.inventory[2] = Functions.createItem(10, 1,
 						((MainGame) game).container, 0);
-				player.inventory[2] = Functions.createItem(8, 1,
+				player.inventory[3] = Functions.createItem(8, 1,
 						((MainGame) game).container, 0);
 				wrld = new BufferedWorld(objects, new Vector<Mob>(), player,
 						String.valueOf(menu[1].length - 1) + ".wrld", 12f, 0f,

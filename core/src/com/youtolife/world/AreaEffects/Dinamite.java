@@ -12,17 +12,9 @@ import com.youtolife.world.states.GamePlayState;
 
 public class Dinamite extends AreaEffect {
 
-	/**
-	 */
 	int fireTime = 1000;
-	/**
-	 */
 	int damage = 5;
-	/**
-	 */
 	AnimatedSprite stative;
-	/**
-	 */
 	AnimatedSprite dynamic;
 	
 	public Dinamite(ImageContainer container, GamePlayState game) {
@@ -56,7 +48,7 @@ public class Dinamite extends AreaEffect {
 	public void interract(GamePlayState game, StateBasedGame main) {
 		if (fireTime <= 0) {
 			if (Intersector.overlapConvexPolygons(rect,game.player.rect))
-				game.player.hp = (game.player.hp - damage);
+				game.player.hp = (int) (game.player.hp - damage*Gdx.graphics.getDeltaTime()*15);
 				
 			for (int i = 0; i <= game.mobs.size() - 1; i++) {
 				if (Intersector.overlapConvexPolygons(game.mobs.get(i).rect,rect)) {
@@ -72,7 +64,7 @@ public class Dinamite extends AreaEffect {
 			}
 			for (int i = 0; i <= game.objects.size() - 1; i++) {
 				if (Intersector.overlapConvexPolygons(game.objects.get(i).rect,rect))
-					game.objects.get(i).hp -= damage;
+					game.objects.get(i).hp -= damage*Gdx.graphics.getDeltaTime()*15;
 			}
 		}
 	}

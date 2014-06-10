@@ -9,17 +9,9 @@ import com.youtolife.world.Mob;
 
 public abstract class NeutralMob extends Mob {
 
-	/**
-	 */
 	float StartingAngle;
-	/**
-	 */
 	float FinalAngle;
-	/**
-	 */
 	int direction = 1;
-	/**
-	 */
 	Random rand;
 
 	public NeutralMob(float angle, float worldAngle, ImageContainer container) {

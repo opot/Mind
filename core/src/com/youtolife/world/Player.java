@@ -16,65 +16,23 @@ import com.badlogic.gdx.graphics.Pixmap;
 
 public class Player extends GameObject {
 
-	/**
-	 */
-	Texture tbodyl;
-	/**
-	 */
-	Texture tarml;
-	/**
-	 */
-	Texture tlegl;
-	/**
-	 */
-	public Sprite body;
-	/**
-	 */
-	public Sprite leg;
-	/**
-	 */
-	public Sprite arm;
-
-	/**
-	 */
+	Texture tbodyl, tarml, tlegl;
+	public Sprite body, leg, arm;
 	FrameBuffer fbo = null;
-	/**
-	 */
 	TextureRegion tr = null;
-	/**
-	 */
 	Sprite player = null;
-
-	/**
-	 */
+	
 	public Item[] inventory = new Item[25];
-	/**
-	 */
 	public int hp = 100;
-	/**
-	 */
 	public int current = 0;
-	/**
-	 */
 	public int direction = 0;
-	/**
-	 */
 	public float armAdd = 0;
-	/**
-	 */
+	
 	float armAngle = 0;
-	/**
-	 */
 	float armSpeed = 1;
-	/**
-	 */
 	float legAngle = 0;
-	/**
-	 */
 	float legSpeed = 1;
 
-	/**
-	 */
 	public Melee melee;
 
 	public Player(ImageContainer container, GamePlayState game) {
@@ -154,8 +112,6 @@ public class Player extends GameObject {
 	public void update(GamePlayState game, ButtonTouch bt[], float rotation) {
 		float delta = Gdx.graphics.getDeltaTime() * 1000;
 
-		hp = 100;
-
 		createRect(game.world, rotation);
 
 		Input input = Gdx.input;
@@ -208,7 +164,7 @@ public class Player extends GameObject {
 		for (Thing a : game.objects) {
 			if ((a instanceof Wall))
 				if (Intersector.overlapConvexPolygons(a.rect, this.rect)) {
-					if (a.rect.getX() < this.rect.getX())
+					if (a.rect.getVertices()[0] < this.rect.getVertices()[0])
 						angle += 20 * delta / game.world.radius;
 					else
 						angle -= 20 * delta / game.world.radius;
